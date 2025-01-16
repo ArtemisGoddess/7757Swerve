@@ -3,8 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "RobotContainer.h"
+#include "subsystems/MotorTurn.h"
 
 #include <frc2/command/Commands.h>
+#include <frc2/command/button/JoystickButton.h>
 
 RobotContainer::RobotContainer()
 {
@@ -36,9 +38,12 @@ void RobotContainer::ConfigureBindings()
     (joystick.Start() && joystick.Y()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kForward));
     (joystick.Start() && joystick.X()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kReverse));
 
-    // reset the field-centric heading on left bumper press
-    joystick.LeftBumper().OnTrue(drivetrain.RunOnce([this] { drivetrain.SeedFieldCentric(); }));
-
+    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
+        .WhileTrue(m_turn.TurnLeft());
+    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper)
+        .WhileTrue(m_turn.TurnRight());
+    
+    
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 }
 

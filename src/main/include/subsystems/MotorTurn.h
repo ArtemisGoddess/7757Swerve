@@ -18,5 +18,5 @@ class MotorTurn : public frc2::SubsystemBase {
 
     private:
         ctre::phoenix6::hardware::TalonFX T_Motor;
-
+        double T_test = 0;
 };

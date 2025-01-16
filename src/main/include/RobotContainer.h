@@ -10,6 +10,8 @@
 #include "Telemetry.h"
 #include <ctre/phoenix6/swerve/SwerveRequest.hpp>
 
+#include "subsystems/MotorTurn.h"
+
 //swerve::requests::ForwardPerspectiveValue FieldCentric = swerve::requests::ForwardPerspectiveValue::BlueAlliance;
 //swerve::requests::ForwardPerspectiveValue OperaterCentric = swerve::requests::ForwardPerspectiveValue::OperatorPerspective;
 
@@ -41,4 +43,6 @@ public:
 
 private:
     void ConfigureBindings();
+
+    MotorTurn m_turn; //This registers and allows the use of the MotorTurn subsystem
 };
