@@ -14,25 +14,19 @@
 //ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
 //ctre::phoenix6::hardware::TalonFX Test{11, can};
 
-RobotContainer::RobotContainer()
+RobotContainer::RobotContainer() 
 {
 
     frc::Shuffleboard::GetTab("MotorTurn").Add(m_turn);
 
+    m_turn.setConfig();
+
+    //m_turn.test();
+
     ConfigureBindings();
-
-    /*configs::Slot2Configs slot2Configs{};
-    slot2Configs.kS = 0.25; // Add 0.25 V output to overcome static friction
-    slot2Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
-    slot2Configs.kP = 4.8; // A position error of 2.5 rotations results in 12 V output
-    slot2Configs.kI = 0; // no output for integrated error
-    slot2Configs.kD = 0.1; // A velocity error of 1 rps results in 0.1 V output
-
-    Test.GetConfigurator().Apply(slot2Configs);*/
 }
 
-void RobotContainer::ConfigureBindings()
-{
+void RobotContainer::ConfigureBindings() {
     // Note that X is defined as forward according to WPILib convention,
     // and Y is defined as to the left according to WPILib convention.
     drivetrain.SetDefaultCommand(
@@ -56,8 +50,12 @@ void RobotContainer::ConfigureBindings()
     (joystick.Start() && joystick.Y()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kForward));
     (joystick.Start() && joystick.X()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kReverse));
 
-    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
-        .OnTrue(m_turn.SetMotorPosition(1_tr)); //.OnChange(m_turn.TurnRight());
+    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
+        .OnTrue(m_turn.SetMotorPosition(10_tr));
+    
+    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kB)
+        .OnTrue(m_turn.testtest(0_tr));
+        //.OnFalse(m_turn.StopIt()); //.OnChange(m_turn.TurnRight());
         //.WhileFalse(m_turn.StopIt());
 
     //frc2::CommandPtr test = frc2::Command::ToPtr(m_turn.setMotorTest(0));
