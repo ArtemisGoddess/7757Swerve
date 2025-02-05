@@ -14,9 +14,11 @@ class MotorTurn : public frc2::SubsystemBase {
 
         frc2::CommandPtr StopIt();
 
+        frc2::CommandPtr SetMotorPosition(units::angle::turn_t turns);
+
         void InitSendable(wpi::SendableBuilder& builder) override;
 
     private:
         ctre::phoenix6::hardware::TalonFX T_Motor;
-        double T_test = 0;
+        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0);
 };

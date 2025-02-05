@@ -7,10 +7,28 @@
 
 #include <frc2/command/Commands.h>
 #include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/Command.h>
+#include <frc/shuffleboard/Shuffleboard.h>
+#include <frc/trajectory/TrapezoidProfile.h>
+
+//ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
+//ctre::phoenix6::hardware::TalonFX Test{11, can};
 
 RobotContainer::RobotContainer()
 {
+
+    frc::Shuffleboard::GetTab("MotorTurn").Add(m_turn);
+
     ConfigureBindings();
+
+    /*configs::Slot2Configs slot2Configs{};
+    slot2Configs.kS = 0.25; // Add 0.25 V output to overcome static friction
+    slot2Configs.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
+    slot2Configs.kP = 4.8; // A position error of 2.5 rotations results in 12 V output
+    slot2Configs.kI = 0; // no output for integrated error
+    slot2Configs.kD = 0.1; // A velocity error of 1 rps results in 0.1 V output
+
+    Test.GetConfigurator().Apply(slot2Configs);*/
 }
 
 void RobotContainer::ConfigureBindings()
@@ -39,10 +57,15 @@ void RobotContainer::ConfigureBindings()
     (joystick.Start() && joystick.X()).WhileTrue(drivetrain.SysIdQuasistatic(frc2::sysid::Direction::kReverse));
 
     frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
-        .WhileTrue(m_turn.TurnLeft());
-    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper)
-        .WhileTrue(m_turn.TurnRight());
-    
+        .OnTrue(m_turn.SetMotorPosition(1_tr)); //.OnChange(m_turn.TurnRight());
+        //.WhileFalse(m_turn.StopIt());
+
+    //frc2::CommandPtr test = frc2::Command::ToPtr(m_turn.setMotorTest(0));
+
+    /*frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper)
+        .WhileTrue(setMotorTest);
+        //.WhileFalse(m_turn.StopIt());
+    */
     
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 }
