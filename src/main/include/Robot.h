@@ -8,6 +8,8 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
+#include <networktables/Topic.h>
+//#include <networktables
 
 #include "RobotContainer.h"
 
@@ -33,4 +35,7 @@ class Robot : public frc::TimedRobot {
 
   RobotContainer m_container;
   MotorTurn m_turn;
+
+  NT_Publisher publisher;
+  NT_Inst inst = nt::GetDefaultInstance();
 };

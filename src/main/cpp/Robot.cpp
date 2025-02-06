@@ -39,10 +39,12 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-
+  
 }
 
-void Robot::TeleopExit() {}
+void Robot::TeleopExit() {
+  
+}
 
 void Robot::TestInit() {
   frc2::CommandScheduler::GetInstance().CancelAll();
