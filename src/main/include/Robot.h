@@ -9,7 +9,8 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
 #include <networktables/Topic.h>
-//#include <networktables
+#include <ctre/phoenix6/Pigeon2.hpp>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "RobotContainer.h"
 
@@ -35,7 +36,10 @@ class Robot : public frc::TimedRobot {
 
   RobotContainer m_container;
   MotorTurn m_turn;
+  IntakeSubsystem m_intake;
 
-  NT_Publisher publisher;
-  NT_Inst inst = nt::GetDefaultInstance();
+  ctre::phoenix6::hardware::Pigeon2 m_pigey{0, ctre::phoenix6::CANBus{"", "./logs/example.hoot"}};
+
+  nt::NetworkTableInstance m_inst = nt::NetworkTableInstance::GetDefault();
+  std::shared_ptr<nt::NetworkTable> slam = m_inst.GetTable("slam");
 };
