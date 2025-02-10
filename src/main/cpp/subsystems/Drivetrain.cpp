@@ -61,10 +61,6 @@ void Drivetrain::arcadeDrive(double throttle, double turn) {
     setDriveMotors(throttle + turn, throttle - turn);
 }
 
-void Drivetrain::stop() {
-
-}
-
 void Drivetrain::flipDT() {
     flipped = !flipped;
 }
@@ -117,24 +113,8 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::driveRobotRelative(frc::ChassisSpe
 
 }
 
-
-
 double Drivetrain::getPitchAsAngle() {
     return getPitch().Degrees().value();
-}
-
-
-
-void Drivetrain::resetEncoders() {
-
-}
-
-double Drivetrain::getLeftEncoderDistance() {
-
-}
-
-double Drivetrain::getRightEncoderDistance() {
- 
 }
 
 void Drivetrain::resetGyro() {

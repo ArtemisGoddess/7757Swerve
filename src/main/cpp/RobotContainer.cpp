@@ -12,6 +12,7 @@
 #include <frc/shuffleboard/Shuffleboard.h>
 #include <frc/trajectory/TrapezoidProfile.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <pathplanner/lib/commands/PathPlannerAuto.h>
 
 //ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
 //ctre::phoenix6::hardware::TalonFX Test{11, can};
@@ -65,5 +66,5 @@ void RobotContainer::ConfigureBindings() {
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-    return frc2::cmd::Print("No autonomous command configured");
+    return pathplanner::PathPlannerAuto("Example Auto").ToPtr();
 }
