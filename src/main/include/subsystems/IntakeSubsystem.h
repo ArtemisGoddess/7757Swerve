@@ -14,8 +14,6 @@ class IntakeSubsystem : public frc2::SubsystemBase {
     public:
         IntakeSubsystem();
 
-        frc2::CommandPtr SetMotorPosition(units::angle::turn_t turns);
-
         frc2::CommandPtr Intake(units::angle::turn_t turns);
 
         void InitSendable(wpi::SendableBuilder& builder) override;
@@ -30,7 +28,7 @@ class IntakeSubsystem : public frc2::SubsystemBase {
 
     private:
         ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
-        ctre::phoenix6::hardware::TalonFX T_Motor{11, can};
+        //ctre::phoenix6::hardware::TalonFX T_Motor{11, can};
 
         controls::PositionVoltage a_request = controls::PositionVoltage{0_tr}.WithSlot(0);
 };

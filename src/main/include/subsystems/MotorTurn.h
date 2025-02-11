@@ -13,12 +13,6 @@ class MotorTurn : public frc2::SubsystemBase {
     public:
         MotorTurn();
 
-        frc2::CommandPtr TurnLeft();
-
-        frc2::CommandPtr TurnRight();
-
-        frc2::CommandPtr StopIt();
-
         frc2::CommandPtr SetMotorPosition(units::angle::turn_t turns);
 
         frc2::CommandPtr testtest(units::angle::turn_t turns);
@@ -32,7 +26,7 @@ class MotorTurn : public frc2::SubsystemBase {
 
     private:
         ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
-        ctre::phoenix6::hardware::TalonFX T_Motor{11, can};
+        //ctre::phoenix6::hardware::TalonFX T_Motor{11, can};
         //frc::SimpleMotorFeedforward<units::radians> m_shooterFeedforward{(units::volt_t)0.1};
 
         controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0);

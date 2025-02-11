@@ -16,7 +16,7 @@ frc2::CommandPtr IntakeSubsystem::Intake(const units::angle::turn_t turns) {
     return this->Run(
         [this, turns] {
             if (sensor.Get()) {
-                T_Motor.SetControl(a_request.WithPosition(a_request.Position + turns));
+                //T_Motor.SetControl(a_request.WithPosition(a_request.Position + turns));
             }
         }
     );
@@ -33,7 +33,7 @@ void IntakeSubsystem::setConfig() {
     config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1);
     //.WithKS(0.25).WithKV(0.12)
 
-    T_Motor.GetConfigurator().Apply(config);
+    //T_Motor.GetConfigurator().Apply(config);
 }
 
 void IntakeSubsystem::InitSendable(wpi::SendableBuilder& builder) {

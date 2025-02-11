@@ -2,13 +2,11 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "subsystems/Drivetrain.h"
+#include "subsystems/SwerveSubsystem.h"
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 #include "networktables/NetworkTableEntry.h"
 #include "networktables/NetworkTableValue.h"
-#include "subsystems/CommandSwerveDrivetrain.h"
-#include "RobotContainer.h"
 
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <frc/geometry/Pose2d.h>
@@ -18,10 +16,10 @@
 #include <pathplanner/lib/controllers/PPHolonomicDriveController.h>
 
 #include <units/velocity.h>
-
+#include <frc/DriverStation.h>
 
 using namespace pathplanner;
-Drivetrain::Drivetrain() {
+SwerveSubsystem::SwerveSubsystem() {
     RobotConfig config = RobotConfig::fromGUISettings();
     
     resetGyro();
@@ -37,71 +35,58 @@ Drivetrain::Drivetrain() {
         PIDConstants(5.0, 0.0, 0.0)
     ),
     config,                                         // Default path replanning config
-    [this]() -> bool { /* Implement shouldFlipPath logic here */ return true; },  // Lambda for shouldFlipPath
-    this                                                        // Reference to this subsystem to set requirements
-);
+    []() {
+            // Boolean supplier that controls when the path will be mirrored for the red alliance
+            // This will flip the path being followed to the red side of the field.
+            // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
-
-    
+            auto alliance = frc::DriverStation::GetAlliance();
+            if (alliance) {
+                return alliance.value() == frc::DriverStation::Alliance::kRed;
+            }
+            return false;
+        },
+        this                                                       // Reference to this subsystem to set requirements
+    );  
 }
 
-void Drivetrain::setDriveMotors(double left, double right) {
-    //tab.Add("Left Motor", left);
-    //tab.Add("Right Motor", right);
-    
-    if (flipped) {
-
-    } else {
- 
-    }
-    //NetworkTableEntry testTab = Shuffleboard.getTab("Test").add("Pi", 3.14);
-}
-
-void Drivetrain::arcadeDrive(double throttle, double turn) {
-    setDriveMotors(throttle + turn, throttle - turn);
-}
-
-void Drivetrain::flipDT() {
-    flipped = !flipped;
-}
-
-frc::Rotation2d Drivetrain::getHeading() {
+frc::Rotation2d SwerveSubsystem::getHeading() {
     units::degree_t deg{-gyro.GetYaw().GetValue()};
     return frc::Rotation2d(deg);
 }
 
-double Drivetrain::getHeadingAsAngle() {
+double SwerveSubsystem::getHeadingAsAngle() {
     return getHeading().Degrees().value();
 }
 
-frc::Rotation2d Drivetrain::getPitch() {
+frc::Rotation2d SwerveSubsystem::getPitch() {
     units::degree_t deg{gyro.GetPitch().GetValue()};
     return frc::Rotation2d(deg);
 }
 
-frc::Pose2d Drivetrain::getPose(){
-    units::meter_t posX{container.drivetrain.GetState().Pose.X()};
-    units::meter_t posY{container.drivetrain.GetState().Pose.Y()};
+frc::Pose2d SwerveSubsystem::getPose(){
+    units::meter_t posX{slam.get()->GetNumber("PositionX", 0.0)};
+    units::meter_t posY{slam.get()->GetNumber("PositionY", 0.0)};
     units::degree_t deg{gyro.GetPitch().GetValue()};
     return frc::Pose2d(posX, posY, deg);
 }
 
 
-frc::Pose2d Drivetrain::resetPose(frc::Pose2d pose){
+frc::Pose2d SwerveSubsystem::resetPose(frc::Pose2d pose){
     return frc::Pose2d();
 }
 
-frc::ChassisSpeeds Drivetrain::getRobotRelativeSpeeds(){
+frc::ChassisSpeeds SwerveSubsystem::getRobotRelativeSpeeds(){
 
-    units::meters_per_second_t speedX{container.drivetrain.GetState().Speeds.vx()};
-    units::meters_per_second_t speedY{container.drivetrain.GetState().Speeds.vy()};
+    units::meters_per_second_t speedX{slam.get()->GetNumber("VelocityX", 0.0)};
+    units::meters_per_second_t speedY{slam.get()->GetNumber("VelocityY", 0.0)};
 
     frc::ChassisSpeeds speeds{speedX, -speedY,
     units::radians_per_second_t(std::numbers::pi)};
     return frc::ChassisSpeeds(speeds);
 }
 
-frc::DifferentialDriveWheelSpeeds Drivetrain::driveRobotRelative(frc::ChassisSpeeds speeds){
+frc::DifferentialDriveWheelSpeeds SwerveSubsystem::driveRobotRelative(frc::ChassisSpeeds speeds){
     // Creating my kinematics object: track width of 23 inches (Calculated from Robot CAD)
     frc::DifferentialDriveKinematics kinematics{23_in};
 
@@ -113,14 +98,14 @@ frc::DifferentialDriveWheelSpeeds Drivetrain::driveRobotRelative(frc::ChassisSpe
 
 }
 
-double Drivetrain::getPitchAsAngle() {
+double SwerveSubsystem::getPitchAsAngle() {
     return getPitch().Degrees().value();
 }
 
-void Drivetrain::resetGyro() {
+void SwerveSubsystem::resetGyro() {
     gyro.Reset();
 }
 
-
-// This method will be called once per scheduler run
-void Drivetrain::Periodic() {}
+void SwerveSubsystem::Periodic() { 
+    
+}

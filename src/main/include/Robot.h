@@ -13,6 +13,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 #include "RobotContainer.h"
+#include "subsystems/SwerveSubsystem.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -37,6 +38,8 @@ class Robot : public frc::TimedRobot {
   RobotContainer m_container;
   MotorTurn m_turn;
   IntakeSubsystem m_intake;
+
+  SwerveSubsystem m_train;
 
   ctre::phoenix6::hardware::Pigeon2 m_pigey{0, ctre::phoenix6::CANBus{"", "./logs/example.hoot"}};
 

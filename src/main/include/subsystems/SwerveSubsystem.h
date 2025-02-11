@@ -28,39 +28,20 @@
 #include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
 
 #include "generated/TunerConstants.h"
-#include "RobotContainer.h"
 
-using namespace pathplanner;
-
-class Drivetrain : public frc2::SubsystemBase {
+class SwerveSubsystem : public frc2::SubsystemBase {
   
   
  public:
-  Drivetrain();
-
-  void setDriveMotors(double, double);
-
-  void arcadeDrive(double, double);
-
-  void stop();
-  
-  void flipDT();
+  SwerveSubsystem();
 
   frc::Rotation2d getHeading();
 
   double getHeadingAsAngle();
 
-  void resetEncoders();
-
   frc::Rotation2d getPitch();
 
   double getPitchAsAngle();
-
-  double getLeftEncoderDistance();
-
-  double getRightEncoderDistance();
-
-  double neoTicksToInches(double);
 
   void resetGyro();
   
@@ -79,25 +60,13 @@ class Drivetrain : public frc2::SubsystemBase {
    */
   void Periodic() override;
 
- private:
- RobotContainer container;
+  private:
 
-  //ctre::phoenix::motorcontrol::can::WPI_VictorSPX leftSpark1{drivetrain::kLeftDriveSparkPort1};
-  //frc::CANVenom leftSpark2{drivetrain::kLeftDriveSparkPort2};
+    // Components (e.g. motor controllers and sensors) should generally be
+    // declared private and exposed only through public methods.
+    nt::NetworkTableInstance m_inst = nt::NetworkTableInstance::GetDefault();
+    std::shared_ptr<nt::NetworkTable> slam = m_inst.GetTable("slam");
 
-  
 
-  //frc::DifferentialDrive drive{leftMotors, rightMotors};
-
-  bool flipped = false;
-
-  
-
-  frc::ShuffleboardTab& tab = frc::Shuffleboard::GetTab("Test");
-
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
-  
     ctre::phoenix6::hardware::Pigeon2 gyro{1, "rio"}; 
-  
 };
