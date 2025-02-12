@@ -41,7 +41,9 @@ void RobotContainer::ConfigureBindings() {
     );
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
-        .WhileTrue(m_intake.Intake(0.1_tr));
+        //.WhileTrue(m_intake.Intake(0.1_tr));
+        .WhileTrue(m_turn.testtest(1_tr))
+        .OnFalse(m_turn.victorOff());
 
     /*frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)
         .OnTrue(m_intake.Intake(1_tr));

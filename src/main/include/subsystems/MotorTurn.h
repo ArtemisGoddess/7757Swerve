@@ -5,6 +5,7 @@
 #include <frc2/command/SubsystemBase.h> //Subsystem things
 #include <frc/controller/SimpleMotorFeedforward.h>
 #include <ctre/phoenix6/configs/Configs.hpp>
+#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 
 #include <generated/TunerConstants.h>
 
@@ -17,6 +18,7 @@ class MotorTurn : public frc2::SubsystemBase {
 
         frc2::CommandPtr testtest(units::angle::turn_t turns);
 
+        frc2::CommandPtr victorOff();
 
         void InitSendable(wpi::SendableBuilder& builder) override;
 
@@ -26,6 +28,7 @@ class MotorTurn : public frc2::SubsystemBase {
 
     private:
         ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
+        ctre::phoenix::motorcontrol::can::VictorSPX victor{5};
         //ctre::phoenix6::hardware::TalonFX T_Motor{11, can};
         //frc::SimpleMotorFeedforward<units::radians> m_shooterFeedforward{(units::volt_t)0.1};
 

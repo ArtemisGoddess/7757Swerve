@@ -8,11 +8,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <Robot.h>
 
-frc::DigitalInput sensor{9};
+//frc::DigitalInput sensor{9};
 
 IntakeSubsystem::IntakeSubsystem() {}
 
-frc2::CommandPtr IntakeSubsystem::Intake(const units::angle::turn_t turns) {
+/*frc2::CommandPtr IntakeSubsystem::Intake(const units::angle::turn_t turns) {
     return this->Run(
         [this, turns] {
             if (sensor.Get()) {
@@ -20,7 +20,7 @@ frc2::CommandPtr IntakeSubsystem::Intake(const units::angle::turn_t turns) {
             }
         }
     );
-}
+}*/
 
 double IntakeSubsystem::getRots() {
     return a_request.Position();

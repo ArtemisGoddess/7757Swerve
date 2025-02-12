@@ -42,4 +42,5 @@ class Robot : public frc::TimedRobot {
 
   nt::NetworkTableInstance m_inst = nt::NetworkTableInstance::GetDefault();
   std::shared_ptr<nt::NetworkTable> slam = m_inst.GetTable("slam");
+  std::shared_ptr<nt::NetworkTable> limelight = m_inst.GetTable("limelight");
 };
