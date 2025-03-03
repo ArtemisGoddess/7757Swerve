@@ -15,17 +15,20 @@ ctre::phoenix6::hardware::Pigeon2 Pigey{0, CAN};
 ctre::phoenix::motorcontrol::can::VictorSPX UpperIntake{5}; //Self explainitory naming scheme
 ctre::phoenix::motorcontrol::can::VictorSPX LowerIntake{5};
 
-ctre::phoenix6::hardware::TalonFX A_Motor{12, CAN};
-
-ctre::phoenix6::hardware::TalonFX motor{12, CAN};
-
-ctre::phoenix6::hardware::TalonFX ArmMotor{10, CAN};
-
 ctre::phoenix6::hardware::TalonFX LiftMotor{10, CAN};
 ctre::phoenix6::hardware::TalonFX LiftFollower1{10, CAN};
 ctre::phoenix6::hardware::TalonFX LiftFollower2{10, CAN};
 
-std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&A_Motor, &motor, &ArmMotor, &LiftMotor, &LiftFollower1, &LiftFollower2}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
+ctre::phoenix6::hardware::TalonFX ClimberMotor{10, CAN};
+ctre::phoenix6::hardware::TalonFX ClimberFollower1{10, CAN};
+ctre::phoenix6::hardware::TalonFX ClimberFollower2{10, CAN};
+
+ctre::phoenix6::hardware::TalonFX WristMotor{10, CAN};
+ctre::phoenix6::hardware::TalonFX WristFollower{10, CAN};
+
+
+
+std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&LiftMotor, &LiftFollower1, &LiftFollower2, &ClimberMotor, &ClimberFollower1, &ClimberFollower2, &WristMotor, &WristFollower}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
 
 //Configures a single motor for initial usage
 void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) { 

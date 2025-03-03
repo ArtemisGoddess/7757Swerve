@@ -13,6 +13,8 @@
 
 #include "subsystems/TestSubsystem.h" 
 #include "subsystems/IntakeSubsystem.h"
+#include "subsystems/ClimberSubsystem.h"
+#include "subsystems/WristSubsystem.h"
 
 //swerve::requests::ForwardPerspectiveValue FieldCentric = swerve::requests::ForwardPerspectiveValue::BlueAlliance;
 //swerve::requests::ForwardPerspectiveValue OperaterCentric = swerve::requests::ForwardPerspectiveValue::OperatorPerspective;
@@ -48,5 +50,6 @@ private:
 
     TestSubsystem m_test; //This registers and allows the use of the MotorTurn subsystem
     IntakeSubsystem m_intake;
-       
+    ClimberSubsystem m_climber;
+    WristSubsystem m_wrist;
 };

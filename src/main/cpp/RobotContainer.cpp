@@ -30,9 +30,9 @@ RobotContainer::RobotContainer()
     
 
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.OuttakeCoral())); // <- This example method returns CommandPtr
-    pathplanner::NamedCommands::registerCommand("Arm-Up", std::move(A_Motor.SetMotorPosition())); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(1_tr))); // <- This example method returns CommandPtr
     pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.IntakeCoral())); // <- This example method returns CommandPtr
-    pathplanner::NamedCommands::registerCommand("Arm-Down", std::move(A_Motor.SetMotorPosition(0_tr)));
+    pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(0_tr)));
     
     //m_turn.test();
 

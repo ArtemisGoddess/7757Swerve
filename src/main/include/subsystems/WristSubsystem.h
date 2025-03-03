@@ -10,26 +10,16 @@
 #include <generated/TunerConstants.h>
 
 
-class ArmSubsystem : public frc2::SubsystemBase {
+class WristSubsystem : public frc2::SubsystemBase {
     public:
-        ArmSubsystem();
+        WristSubsystem();
 
-         frc2::CommandPtr SetMotorPosition(units::angle::turn_t turns);
-
-        frc2::CommandPtr testtest(units::angle::turn_t turns);
-
-        frc2::CommandPtr victorOff();
+        frc2::CommandPtr Wrist(units::angle::turn_t turns);
 
         void InitSendable(wpi::SendableBuilder& builder) override;
-
-        void setConfig();
-
-        void test();
-
-        bool sensorBool1;
 
     private:
         //ctre::phoenix6::hardware::TalonFX A_Motor{12, can};
 
-        controls::PositionVoltage a_request = controls::PositionVoltage{0_tr}.WithSlot(0);
+        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0);
 };
