@@ -3,9 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "RobotContainer.h"
-#include "subsystems/MotorTurn.h"
-#include "subsystems/IntakeSubsystem.h"
-#include "config.cpp"
 #include "Telemetry.h"
 #include "Config.h"
 
@@ -29,13 +26,12 @@
 RobotContainer::RobotContainer() 
 {
     frc::Shuffleboard::GetTab("IntakeSubsystem").Add(m_intake);
-    frc::Shuffleboard::GetTab("MotorTurn").Add(m_turn);
+    frc::Shuffleboard::GetTab("testSubsystem").Add(m_test);
     
 
-    pathplanner::NamedCommands::registerCommand("Score", std::move(motor.Set(1))); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.OuttakeCoral())); // <- This example method returns CommandPtr
     pathplanner::NamedCommands::registerCommand("Arm-Up", std::move(A_Motor.SetMotorPosition())); // <- This example method returns CommandPtr
-    pathplanner::NamedCommands::registerCommand("Wheelstop",std::move(motor.Set(0)));
-    pathplanner::NamedCommands::registerCommand("Pick-Up", std::move(motor.Set(-1))); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.IntakeCoral())); // <- This example method returns CommandPtr
     pathplanner::NamedCommands::registerCommand("Arm-Down", std::move(A_Motor.SetMotorPosition(0_tr)));
     
     //m_turn.test();
@@ -57,8 +53,8 @@ void RobotContainer::ConfigureBindings() {
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
         //.WhileTrue(m_intake.Intake(0.1_tr));
-        .WhileTrue(m_turn.testtest(1_tr))
-        .OnFalse(m_turn.victorOff());
+        .WhileTrue(m_test.testtest(1_tr))
+        .OnFalse(m_test.victorOff());
 
     /*frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)
         .OnTrue(m_intake.Intake(1_tr));

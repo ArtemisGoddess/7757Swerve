@@ -5,13 +5,16 @@
 #include <frc2/command/SubsystemBase.h> //Subsystem things
 #include <frc/controller/SimpleMotorFeedforward.h>
 #include <ctre/phoenix6/configs/Configs.hpp>
+#include "Config.h"
+#include "generated/TunerConstants.h"
+#include "RobotContainer.h"
 
 #include <generated/TunerConstants.h>
 
 
-class MotorTurn : public frc2::SubsystemBase {
+class TestSubsystem : public frc2::SubsystemBase {
     public:
-        MotorTurn();
+        TestSubsystem();
 
         frc2::CommandPtr SetMotorPosition(units::angle::turn_t turns);
 
@@ -20,10 +23,6 @@ class MotorTurn : public frc2::SubsystemBase {
         frc2::CommandPtr victorOff();
 
         void InitSendable(wpi::SendableBuilder& builder) override;
-
-        void setConfig();
-
-        void test();
 
     private:
         //ctre::phoenix6::hardware::TalonFX T_Motor{11, can};

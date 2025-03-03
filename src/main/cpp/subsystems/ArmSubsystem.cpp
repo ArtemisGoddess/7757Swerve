@@ -13,7 +13,7 @@ ArmSubsystem::ArmSubsystem() {
 
 }
 
-frc2::CommandPtr MotorTurn::SetMotorPosition(const units::angle::turn_t turns) {
+frc2::CommandPtr ArmSubsystem::SetMotorPosition(const units::angle::turn_t turns) {
     return this->RunOnce(
         [this, turns] {
             //T_Motor.SetControl(m_request.WithPosition(m_request.Position + turns));

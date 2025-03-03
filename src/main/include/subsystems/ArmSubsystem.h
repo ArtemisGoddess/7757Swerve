@@ -5,6 +5,7 @@
 #include <frc2/command/SubsystemBase.h> //Subsystem things
 #include <frc/controller/SimpleMotorFeedforward.h>
 #include <frc/DigitalInput.h>
+#include "Config.h"
 
 #include <generated/TunerConstants.h>
 
@@ -28,7 +29,6 @@ class ArmSubsystem : public frc2::SubsystemBase {
         bool sensorBool1;
 
     private:
-        ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
         //ctre::phoenix6::hardware::TalonFX A_Motor{12, can};
 
         controls::PositionVoltage a_request = controls::PositionVoltage{0_tr}.WithSlot(0);

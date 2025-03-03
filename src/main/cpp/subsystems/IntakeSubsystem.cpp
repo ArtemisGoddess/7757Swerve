@@ -8,32 +8,62 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <Robot.h>
 
-//frc::DigitalInput sensor{9};
-
 IntakeSubsystem::IntakeSubsystem() {}
 
-/*frc2::CommandPtr IntakeSubsystem::Intake(const units::angle::turn_t turns) {
+frc2::CommandPtr IntakeSubsystem::IntakeCoral() {
     return this->Run(
-        [this, turns] {
-            if (sensor.Get()) {
-                //T_Motor.SetControl(a_request.WithPosition(a_request.Position + turns));
+        [this] {
+            if (Distance.Get()) {
+                UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
+            } else {
+                UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
             }
         }
+    ).FinallyDo(
+        [this] {
+            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+        }
     );
-}*/
-
-double IntakeSubsystem::getRots() {
-    return a_request.Position();
 }
 
-void IntakeSubsystem::setConfig() {
-    configs::TalonFXConfiguration config{};
+frc2::CommandPtr IntakeSubsystem::OuttakeCoral() {
+    return this->Run(
+        [this] {
+            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
+        }
+    ).FinallyDo(
+        [this] {
+            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+        }
+    );
+}
 
-    config.Feedback.WithFeedbackSensorSource(signals::FeedbackSensorSourceValue::RotorSensor);
-    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1);
-    //.WithKS(0.25).WithKV(0.12)
+frc2::CommandPtr IntakeSubsystem::IntakeAlgae() {
+    return this->RunOnce(
+        [this] {
+            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
+            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8);
+        }
+    ).FinallyDo(
+        [this] {
+            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.0);
+        }
+    );
+}
 
-    //T_Motor.GetConfigurator().Apply(config);
+frc2::CommandPtr IntakeSubsystem::OuttakeAlgae() {
+    return this->RunOnce(
+        [this] {
+            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8);
+            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
+        }
+    ).FinallyDo(
+        [this] {
+            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
+            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.0);
+        }
+    );
 }
 
 void IntakeSubsystem::InitSendable(wpi::SendableBuilder& builder) {

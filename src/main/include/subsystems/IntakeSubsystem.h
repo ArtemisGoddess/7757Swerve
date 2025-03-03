@@ -7,27 +7,20 @@
 #include <frc/DigitalInput.h>
 
 #include <generated/TunerConstants.h>
+#include "Config.h"
 
 
 class IntakeSubsystem : public frc2::SubsystemBase {
     public:
         IntakeSubsystem();
 
-        frc2::CommandPtr Intake(units::angle::turn_t turns);
+        frc2::CommandPtr IntakeCoral();
+
+        frc2::CommandPtr OuttakeCoral();
+
+        frc2::CommandPtr IntakeAlgae();
+
+        frc2::CommandPtr OuttakeAlgae();
 
         void InitSendable(wpi::SendableBuilder& builder) override;
-
-        void setConfig();
-
-        double getRots(); //gets rotations and sends them
-
-        bool override();
-
-        bool sensorBool1;
-
-    private:
-        ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
-        //ctre::phoenix6::hardware::TalonFX T_Motor{11, can};
-
-        controls::PositionVoltage a_request = controls::PositionVoltage{0_tr}.WithSlot(0);
 };

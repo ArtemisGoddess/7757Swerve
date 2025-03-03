@@ -35,10 +35,8 @@ class Robot : public frc::TimedRobot {
   std::optional<frc2::CommandPtr> m_autonomousCommand;
 
   RobotContainer m_container;
-  MotorTurn m_turn;
+  TestSubsystem m_test;
   IntakeSubsystem m_intake;
-
-  ctre::phoenix6::hardware::Pigeon2 m_pigey{0, ctre::phoenix6::CANBus{"", "./logs/example.hoot"}};
 
   nt::NetworkTableInstance m_inst = nt::NetworkTableInstance::GetDefault();
   std::shared_ptr<nt::NetworkTable> slam = m_inst.GetTable("slam");

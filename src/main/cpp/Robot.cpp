@@ -8,7 +8,9 @@
 
 
 Robot::Robot() { 
-  m_intake.setConfig();
+  
+
+
 // port 0 digital imput
 // Y high
 // A low
@@ -20,7 +22,7 @@ void Robot::RobotPeriodic() {
   slam->PutNumber("VelocityY", m_container.drivetrain.GetState().Speeds.vy());
   slam->PutNumber("PositionX", (double)m_container.drivetrain.GetState().Pose.X());
   slam->PutNumber("PositionY", (double)m_container.drivetrain.GetState().Pose.Y());
-  slam->PutNumber("PoseRot", (double)m_pigey.GetYaw().GetValue());
+  slam->PutNumber("PoseRot", (double)Pigey.GetYaw().GetValue());
 
   //frc::SmartDashboard::PutNumber("Test Motor Value", m_intake.getRots());
 }
