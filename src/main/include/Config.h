@@ -12,6 +12,7 @@ ctre::phoenix::motorcontrol::can::VictorSPX victor{5};
 
 ctre::phoenix6::hardware::TalonFX TestMotor{11, CAN};
 
+
 //Sets up a single motor for initial usage
 void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) { 
     configs::TalonFXConfiguration config{};
