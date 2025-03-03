@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "First-Score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "First-Pick-Up"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Second-Score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Second-Pick-Up"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Third-Score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Third-Pick-Up"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Fourth-Score"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.517418032786885,
+        "y": 6.560399590163934
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.3965541823883685,
+        "y": 5.921312693744873
+      },
+      "isLocked": false,
+      "linkedName": "Pick-up"
+    },
+    {
+      "anchor": {
+        "x": 3.8960040983606556,
+        "y": 5.361629098360655
+      },
+      "prevControl": {
+        "x": 2.6939324954477906,
+        "y": 6.081136055291092
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Third-Score-End"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -60.25511870305777
+  },
+  "reversed": false,
+  "folder": "Four-Auto",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 135.6008761461011
+  },
+  "useDefaultConstraints": true
+}

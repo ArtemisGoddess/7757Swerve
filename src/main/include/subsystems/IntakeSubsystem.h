@@ -4,7 +4,6 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h> //Subsystem things
 #include <frc/controller/SimpleMotorFeedforward.h>
-#include <ctre/phoenix6/configs/Configs.hpp>
 #include <frc/DigitalInput.h>
 
 #include <generated/TunerConstants.h>

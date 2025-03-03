@@ -5,6 +5,8 @@
 #include "RobotContainer.h"
 #include "subsystems/MotorTurn.h"
 #include "subsystems/IntakeSubsystem.h"
+#include "config.cpp"
+#include "Telemetry.h"
 
 #include <frc2/command/Commands.h>
 #include <frc2/command/button/JoystickButton.h>
@@ -13,6 +15,12 @@
 #include <frc/trajectory/TrapezoidProfile.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <pathplanner/lib/commands/PathPlannerAuto.h>
+#include <pathplanner/lib/events/EventTrigger.h>
+#include <pathplanner/lib/auto/NamedCommands.h>
+#include <iostream>
+#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
+#include <ctre/phoenix6/CANBus.hpp>
+#include <ctre/phoenix6/TalonFX.hpp>
 
 //ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
 //ctre::phoenix6::hardware::TalonFX Test{11, can};
@@ -21,8 +29,14 @@ RobotContainer::RobotContainer()
 {
     frc::Shuffleboard::GetTab("IntakeSubsystem").Add(m_intake);
     frc::Shuffleboard::GetTab("MotorTurn").Add(m_turn);
+    
 
-    //m_turn.setConfig();
+    pathplanner::NamedCommands::registerCommand("Score", std::move(motor.Set(1))); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("Arm-Up", std::move(ArmMotor.SetMotorPosition())); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("Wheelstop",std::move(motor.Set(0)));
+    pathplanner::NamedCommands::registerCommand("Pick-Up", std::move(motor.Set(-1))); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("Arm-Down", std::move(ArmMotor.SetMotorPosition(0_tr)));
+    
     //m_turn.test();
 
     ConfigureBindings();
@@ -68,5 +82,5 @@ void RobotContainer::ConfigureBindings() {
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-    return pathplanner::PathPlannerAuto("Example Auto").ToPtr();
+    return pathplanner::PathPlannerAuto("Drive-Forward").ToPtr();
 }
