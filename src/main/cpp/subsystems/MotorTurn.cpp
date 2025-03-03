@@ -6,12 +6,9 @@
 #include <frc/controller/PIDController.h>
 #include <iostream>
 #include <ctre/phoenix/motorcontrol/ControlMode.h>
+#include "Config.h"
 
-frc::DigitalInput sensor{9};
-
-MotorTurn::MotorTurn() {
-
-}
+MotorTurn::MotorTurn() {}
 
 frc2::CommandPtr MotorTurn::SetMotorPosition(const units::angle::turn_t turns) {
     return this->RunOnce(
@@ -27,7 +24,7 @@ frc2::CommandPtr MotorTurn::SetMotorPosition(const units::angle::turn_t turns) {
 frc2::CommandPtr MotorTurn::testtest(const units::angle::turn_t turns) {
     return this->Run(
         [this, turns] {
-            if (sensor.Get()) {
+            if (Distance.Get()) {
                 victor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.1);
             } else {
                 victor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
@@ -55,7 +52,6 @@ void MotorTurn::setConfig() {
 
     config.Feedback.WithFeedbackSensorSource(signals::FeedbackSensorSourceValue::RotorSensor);
     config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1);
-    //.WithKS(0.25).WithKV(0.12)
 
     //T_Motor.GetConfigurator().Apply(config);
 }
