@@ -26,7 +26,7 @@ void CommandSwerveDrivetrain::ConfigureAutoBuilder()
         std::make_shared<pathplanner::PPHolonomicDriveController>(
             // PID constants for translation
             pathplanner::PIDConstants{10.0, 0.0, 0.0},
-            // PID constants for rotation
+            // PID constants for rotation   
             pathplanner::PIDConstants{7.0, 0.0, 0.0}
         ),
         std::move(config),
