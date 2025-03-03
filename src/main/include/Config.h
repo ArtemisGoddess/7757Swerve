@@ -10,15 +10,20 @@ frc::DigitalInput Distance{9};
 
 ctre::phoenix::motorcontrol::can::VictorSPX victor{5};
 
-ctre::phoenix6::hardware::TalonFX TestMotor{11, CAN};
+ctre::phoenix6::hardware::TalonFX A_Motor{12, CAN};
 
+ctre::phoenix6::hardware::TalonFX T_Motor{11, CAN};
+
+ctre::phoenix6::hardware::TalonFX motor{12, CAN};
+
+ctre::phoenix6::hardware::TalonFX ArmMotor{10, CAN};
 
 //Sets up a single motor for initial usage
 void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) { 
-    configs::TalonFXConfiguration config{};
+    ctre::phoenix6::configs::TalonFXConfiguration config{};
 
-    config.Feedback.WithFeedbackSensorSource(signals::FeedbackSensorSourceValue::RotorSensor);
+    config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
     config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1);
 
-    &TalonFX.GetConfigurator().Apply(config);
+    TalonFX.GetConfigurator().Apply(config);
 }

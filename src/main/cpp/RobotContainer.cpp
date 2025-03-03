@@ -7,6 +7,7 @@
 #include "subsystems/IntakeSubsystem.h"
 #include "config.cpp"
 #include "Telemetry.h"
+#include "Config.h"
 
 #include <frc2/command/Commands.h>
 #include <frc2/command/button/JoystickButton.h>
@@ -32,10 +33,10 @@ RobotContainer::RobotContainer()
     
 
     pathplanner::NamedCommands::registerCommand("Score", std::move(motor.Set(1))); // <- This example method returns CommandPtr
-    pathplanner::NamedCommands::registerCommand("Arm-Up", std::move(ArmMotor.SetMotorPosition())); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("Arm-Up", std::move(A_Motor.SetMotorPosition())); // <- This example method returns CommandPtr
     pathplanner::NamedCommands::registerCommand("Wheelstop",std::move(motor.Set(0)));
     pathplanner::NamedCommands::registerCommand("Pick-Up", std::move(motor.Set(-1))); // <- This example method returns CommandPtr
-    pathplanner::NamedCommands::registerCommand("Arm-Down", std::move(ArmMotor.SetMotorPosition(0_tr)));
+    pathplanner::NamedCommands::registerCommand("Arm-Down", std::move(A_Motor.SetMotorPosition(0_tr)));
     
     //m_turn.test();
 
