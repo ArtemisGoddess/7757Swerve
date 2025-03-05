@@ -49,8 +49,20 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "",
-      "waypointRelativePos": 1.2509541984732704,
+      "name": "Wrist-Down",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "Wrist-Up",
+      "waypointRelativePos": 1.2933092224231484,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "CoralIntake",
+      "waypointRelativePos": 2.0,
       "endWaypointRelativePos": null,
       "command": null
     }

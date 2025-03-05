@@ -33,13 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Arm-Up",
+      "name": "Wrist-Up",
       "waypointRelativePos": 0.3983778625954132,
       "endWaypointRelativePos": null,
       "command": null
     },
     {
-      "name": "Score",
+      "name": "CoralOuttake",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
