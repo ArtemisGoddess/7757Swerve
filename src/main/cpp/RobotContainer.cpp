@@ -33,11 +33,9 @@ RobotContainer::RobotContainer()
     pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(1_tr)));
     pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.Intake()));
     pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(0_tr)));
-    pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
-    pathplanner::NamedCommands::registerCommand("Lift-Down", std::move(m_lift.LiftDown(1_tr))); //Same with this one
+    //pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
+    //pathplanner::NamedCommands::registerCommand("Lift-Down", std::move(m_lift.LiftDown(1_tr))); //Same with this one
     
-    //m_turn.test();
-
     ConfigureBindings();
 }
 

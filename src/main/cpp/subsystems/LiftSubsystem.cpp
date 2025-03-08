@@ -11,7 +11,7 @@
 LiftSubsystem::LiftSubsystem() {}
 
 frc2::CommandPtr LiftSubsystem::LiftUp(const units::angle::turn_t turns) {
-    return this->Run(
+    return this->RunOnce(
         [this, turns] {
             LiftMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position() + turns));
         }
@@ -19,7 +19,7 @@ frc2::CommandPtr LiftSubsystem::LiftUp(const units::angle::turn_t turns) {
 }
 
 frc2::CommandPtr LiftSubsystem::LiftDown(const units::angle::turn_t turns) {
-    return this->Run(
+    return this->RunOnce(
         [this, turns] {
             LiftMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position() - turns));
         }

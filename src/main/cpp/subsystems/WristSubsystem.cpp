@@ -18,7 +18,7 @@ frc2::CommandPtr WristSubsystem::Wrist(const units::angle::turn_t turnPosition) 
 }
 
 frc2::CommandPtr WristSubsystem::WristLeft(const units::angle::turn_t turns) {
-    return this->Run(
+    return this->RunOnce(
         [this, turns] {
             WristMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position() + turns));
         }
@@ -26,7 +26,7 @@ frc2::CommandPtr WristSubsystem::WristLeft(const units::angle::turn_t turns) {
 }
 
 frc2::CommandPtr WristSubsystem::WristRight(const units::angle::turn_t turns) {
-    return this->Run(
+    return this->RunOnce(
         [this, turns] {
             WristMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position() - turns));
         }

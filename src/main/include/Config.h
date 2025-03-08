@@ -55,3 +55,16 @@ inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> 
         Talon->GetConfigurator().Apply(config);
     }
 }
+
+//Goes in a for loop, increments position
+inline void incrmentPosition(ctre::phoenix6::controls::PositionVoltage m_request, units::angle::turn_t positionToReach, double incrementBy) {
+    if ((double)positionToReach > 0) {
+        if ((units::angle::turn_t)m_request.Position() < positionToReach) {
+            m_request.WithPosition((units::angle::turn_t)(m_request.Position() + incrementBy));
+        }
+    } else {
+        if ((units::angle::turn_t)m_request.Position() > positionToReach) {
+            m_request.WithPosition((units::angle::turn_t)(m_request.Position() + incrementBy));
+        }
+    }
+}
