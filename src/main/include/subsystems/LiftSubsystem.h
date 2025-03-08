@@ -10,13 +10,16 @@
 #include "Config.h"
 
 
-class IntakeSubsystem : public frc2::SubsystemBase {
+class LiftSubsystem : public frc2::SubsystemBase {
     public:
-        IntakeSubsystem();
+        LiftSubsystem();
 
-        frc2::CommandPtr Intake();
+        frc2::CommandPtr LiftUp(const units::angle::turn_t turns);
 
-        frc2::CommandPtr Outtake();
+        frc2::CommandPtr LiftDown(const units::angle::turn_t turns);
 
         void InitSendable(wpi::SendableBuilder& builder) override;
+    
+    private:
+        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0);
 };

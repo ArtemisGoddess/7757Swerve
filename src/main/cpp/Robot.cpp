@@ -3,12 +3,21 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
+#include "Config.h"
 
 #include <frc2/command/CommandScheduler.h>
 
 
 Robot::Robot() { 
-  
+  configMotorsDefault(TalonList);
+  LiftFollower1.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
+  LiftFollower2.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
+
+  ClimberFollower1.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
+  ClimberFollower2.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
+
+  WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
+
 
 
 // port 0 digital imput

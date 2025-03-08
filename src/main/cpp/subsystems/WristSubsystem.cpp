@@ -7,25 +7,30 @@
 #include <iostream>
 #include <ctre/phoenix/motorcontrol/ControlMode.h>
 
-frc::DigitalInput sensor{9};
+WristSubsystem::WristSubsystem() {}
 
-WristSubsystem::WristSubsystem() {
-
-}
-
-frc2::CommandPtr WristSubsystem::Wrist(const units::angle::turn_t turns) {
+frc2::CommandPtr WristSubsystem::Wrist(const units::angle::turn_t turnPosition) { //For auto
     return this->RunOnce(
-        [this] {
-            WristMotor.SetControl(m_request.WithPosition(1_tr));
-            //m_request.Position;
-        }
-    ).AndThen(
-        [this] {
-            WristMotor.SetControl(m_request.WithPosition(0_tr));
+        [this, turnPosition] {
+            WristMotor.SetControl(m_request.WithPosition(turnPosition));
         }
     );
 }
 
-void WristSubsystem::InitSendable(wpi::SendableBuilder& builder) {
-    SubsystemBase::InitSendable(builder);
+frc2::CommandPtr WristSubsystem::WristLeft(const units::angle::turn_t turns) {
+    return this->Run(
+        [this, turns] {
+            WristMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position() + turns));
+        }
+    );
 }
+
+frc2::CommandPtr WristSubsystem::WristRight(const units::angle::turn_t turns) {
+    return this->Run(
+        [this, turns] {
+            WristMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position() - turns));
+        }
+    );
+}
+
+void WristSubsystem::InitSendable(wpi::SendableBuilder& builder) { SubsystemBase::InitSendable(builder); }

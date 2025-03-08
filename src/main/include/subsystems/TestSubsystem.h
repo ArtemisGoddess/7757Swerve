@@ -7,7 +7,6 @@
 #include <ctre/phoenix6/configs/Configs.hpp>
 #include "Config.h"
 #include "generated/TunerConstants.h"
-#include "RobotContainer.h"
 
 #include <generated/TunerConstants.h>
 
@@ -18,7 +17,7 @@ class TestSubsystem : public frc2::SubsystemBase {
 
         frc2::CommandPtr SetMotorPosition(units::angle::turn_t turns);
 
-        frc2::CommandPtr testtest(units::angle::turn_t turns);
+        frc2::CommandPtr testtest();
 
         frc2::CommandPtr victorOff();
 

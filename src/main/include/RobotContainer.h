@@ -15,6 +15,7 @@
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/ClimberSubsystem.h"
 #include "subsystems/WristSubsystem.h"
+#include "subsystems/LiftSubsystem.h"
 
 //swerve::requests::ForwardPerspectiveValue FieldCentric = swerve::requests::ForwardPerspectiveValue::BlueAlliance;
 //swerve::requests::ForwardPerspectiveValue OperaterCentric = swerve::requests::ForwardPerspectiveValue::OperatorPerspective;
@@ -36,8 +37,6 @@ private:
      *       define a destructor to un-register the telemetry from the drivetrain */
     Telemetry logger{MaxSpeed};
 
-    frc2::CommandXboxController joystick{0};
-
 public:
     subsystems::CommandSwerveDrivetrain drivetrain{TunerConstants::CreateDrivetrain()};
 
@@ -48,8 +47,9 @@ public:
 private:
     void ConfigureBindings();
 
-    TestSubsystem m_test; //This registers and allows the use of the MotorTurn subsystem
+    TestSubsystem m_test; //This registers and allows the use of the subsystems
     IntakeSubsystem m_intake;
     ClimberSubsystem m_climber;
     WristSubsystem m_wrist;
+    LiftSubsystem m_lift;
 };

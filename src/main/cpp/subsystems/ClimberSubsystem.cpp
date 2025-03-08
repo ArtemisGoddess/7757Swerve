@@ -5,22 +5,21 @@
 #include <iostream>
 #include <ctre/phoenix/motorcontrol/ControlMode.h>
 
-frc::DigitalInput sensor{9};
-
-ClimberSubsystem::ClimberSubsystem() {
-
-}
+ClimberSubsystem::ClimberSubsystem() {}
 
 
 frc2::CommandPtr ClimberSubsystem::ClimbUp() {
     return this->RunOnce(
         [this] {
-            ClimberMotor.SetControl(m_request.WithPosition(1_tr));
-            //m_request.Position;
+            ClimberMotor.SetControl(m_request.WithPosition(5_tr));
         }
-    ).AndThen(
+    );
+}
+
+frc2::CommandPtr ClimberSubsystem::ClimbDown() {
+    return this->RunOnce(
         [this] {
-            ClimberMotor.SetControl(m_request.WithPosition(0_tr));
+            ClimberMotor.SetControl(m_request.WithPosition(-2_tr));
         }
     );
 }

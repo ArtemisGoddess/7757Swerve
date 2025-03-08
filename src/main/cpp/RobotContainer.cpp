@@ -29,10 +29,12 @@ RobotContainer::RobotContainer()
     frc::Shuffleboard::GetTab("testSubsystem").Add(m_test);
     
 
-    pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.OuttakeCoral())); // <- This example method returns CommandPtr
-    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(1_tr))); // <- This example method returns CommandPtr
-    pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.IntakeCoral())); // <- This example method returns CommandPtr
+    pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.Outtake()));
+    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(1_tr)));
+    pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.Intake()));
     pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(0_tr)));
+    pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
+    pathplanner::NamedCommands::registerCommand("Lift-Down", std::move(m_lift.LiftDown(1_tr))); //Same with this one
     
     //m_turn.test();
 
@@ -51,27 +53,32 @@ void RobotContainer::ConfigureBindings() {
         })
     );
 
-    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
-        //.WhileTrue(m_intake.Intake(0.1_tr));
-        .WhileTrue(m_test.testtest(1_tr))
-        .OnFalse(m_test.victorOff());
-
-    /*frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)
-        .OnTrue(m_intake.Intake(1_tr));
-    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)
-        .OnTrue(m_intake.override());*/
+    /*(frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
+        .WhileTrue(m_test.testtest());*/
     
-    /*frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kB)
-        .OnTrue(m_turn.testtest(0_tr));
-        //.OnFalse(m_turn.StopIt()); //.OnChange(m_turn.TurnRight());
-        //.WhileFalse(m_turn.StopIt());
+    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
+        .WhileTrue(m_wrist.WristRight(1_tr));
 
-    //frc2::CommandPtr test = frc2::Command::ToPtr(m_turn.setMotorTest(0));
+    joystick.LeftTrigger(0.5) //For Trigger handling
+        .WhileTrue(m_wrist.WristLeft(1_tr));
 
-    frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper)
-        .WhileTrue(setMotorTest);
-        //.WhileFalse(m_turn.StopIt());
-    */
+    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper))
+        .WhileTrue(m_intake.Intake());
+    
+    joystick.RightTrigger(0.5)
+        .WhileTrue(m_intake.Outtake());
+    
+    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
+        .OnTrue(m_climber.ClimbUp());
+
+    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kA))
+        .OnTrue(m_climber.ClimbDown());
+    
+    joystick.POVUp()
+        .WhileTrue(m_lift.LiftUp(1_tr));
+
+    joystick.POVDown()
+        .WhileTrue(m_lift.LiftDown(1_tr));
     
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
     drivetrain.GetModule(0);

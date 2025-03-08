@@ -1,37 +1,42 @@
+#pragma once
+
 #include <frc/DigitalInput.h>
 #include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <ctre/phoenix6/CANBus.hpp>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/configs/Configs.hpp>
 #include <Vector>
+#include <ctre/phoenix6/Pigeon2.hpp>
+#include <frc2/command/button/CommandXboxController.h>
 
-ctre::phoenix6::CANBus CAN{""}; //The main CAN network. Use this with everything.
-ctre::phoenix6::CANBus SwerveCAN{"Motors"}; //The swerve motor CANivore system. ONLY FOR THE SWERVE MODULES.
+inline ctre::phoenix6::CANBus CAN{""}; //The main CAN network. Use this with everything.
+inline ctre::phoenix6::CANBus SwerveCAN{"SwerveMotors"}; //The swerve motor CANivore system. ONLY FOR THE SWERVE MODULES.
 
-frc::DigitalInput Distance{9};
+inline frc::DigitalInput Distance{9};
 
-ctre::phoenix6::hardware::Pigeon2 Pigey{0, CAN};
+inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, SwerveCAN};
 
-ctre::phoenix::motorcontrol::can::VictorSPX UpperIntake{5}; //Self explainitory naming scheme
-ctre::phoenix::motorcontrol::can::VictorSPX LowerIntake{5};
+inline frc2::CommandXboxController joystick{0};
 
-ctre::phoenix6::hardware::TalonFX LiftMotor{10, CAN};
-ctre::phoenix6::hardware::TalonFX LiftFollower1{10, CAN};
-ctre::phoenix6::hardware::TalonFX LiftFollower2{10, CAN};
+inline ctre::phoenix::motorcontrol::can::VictorSPX UpperIntake{6}; //Self explainitory naming scheme
+inline ctre::phoenix::motorcontrol::can::VictorSPX LowerIntake{5};
 
-ctre::phoenix6::hardware::TalonFX ClimberMotor{10, CAN};
-ctre::phoenix6::hardware::TalonFX ClimberFollower1{10, CAN};
-ctre::phoenix6::hardware::TalonFX ClimberFollower2{10, CAN};
+inline ctre::phoenix6::hardware::TalonFX LiftMotor{99, CAN};
+inline ctre::phoenix6::hardware::TalonFX LiftFollower1{98, CAN};
+inline ctre::phoenix6::hardware::TalonFX LiftFollower2{97, CAN};
 
-ctre::phoenix6::hardware::TalonFX WristMotor{10, CAN};
-ctre::phoenix6::hardware::TalonFX WristFollower{10, CAN};
+inline ctre::phoenix6::hardware::TalonFX ClimberMotor{20, CAN};
+inline ctre::phoenix6::hardware::TalonFX ClimberFollower1{21, CAN}; //Left
+inline ctre::phoenix6::hardware::TalonFX ClimberFollower2{22, CAN}; //Right
+
+inline ctre::phoenix6::hardware::TalonFX WristMotor{15, CAN}; //Top
+inline ctre::phoenix6::hardware::TalonFX WristFollower{16, CAN}; //Bottom
 
 
-
-std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&LiftMotor, &LiftFollower1, &LiftFollower2, &ClimberMotor, &ClimberFollower1, &ClimberFollower2, &WristMotor, &WristFollower}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
+inline std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&LiftMotor, &LiftFollower1, &LiftFollower2, &ClimberMotor, &ClimberFollower1, &ClimberFollower2, &WristMotor, &WristFollower}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
 
 //Configures a single motor for initial usage
-void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) { 
+inline void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) { 
     ctre::phoenix6::configs::TalonFXConfiguration config{};
 
     config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
@@ -41,10 +46,10 @@ void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) {
 }
 
 //Configures a vector of motors for initial usage
-void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> Talons) {
+inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> Talons) {
     ctre::phoenix6::configs::TalonFXConfiguration config{};
     config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
-    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1);
+    config.Slot0.WithKP(0.7).WithKI(0).WithKD(0.1); //KP for motor speed
 
     for (ctre::phoenix6::hardware::TalonFX* Talon : Talons) {
         Talon->GetConfigurator().Apply(config);

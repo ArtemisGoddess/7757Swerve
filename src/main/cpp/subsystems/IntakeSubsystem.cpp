@@ -10,36 +10,8 @@
 
 IntakeSubsystem::IntakeSubsystem() {}
 
-frc2::CommandPtr IntakeSubsystem::IntakeCoral() {
+frc2::CommandPtr IntakeSubsystem::Intake() {
     return this->Run(
-        [this] {
-            if (Distance.Get()) {
-                UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
-            } else {
-                UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
-            }
-        }
-    ).FinallyDo(
-        [this] {
-            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
-        }
-    );
-}
-
-frc2::CommandPtr IntakeSubsystem::OuttakeCoral() {
-    return this->Run(
-        [this] {
-            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
-        }
-    ).FinallyDo(
-        [this] {
-            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
-        }
-    );
-}
-
-frc2::CommandPtr IntakeSubsystem::IntakeAlgae() {
-    return this->RunOnce(
         [this] {
             LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
             UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8);
@@ -52,8 +24,8 @@ frc2::CommandPtr IntakeSubsystem::IntakeAlgae() {
     );
 }
 
-frc2::CommandPtr IntakeSubsystem::OuttakeAlgae() {
-    return this->RunOnce(
+frc2::CommandPtr IntakeSubsystem::Outtake() {
+    return this->Run(
         [this] {
             LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8);
             UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);

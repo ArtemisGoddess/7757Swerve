@@ -16,10 +16,12 @@ class ClimberSubsystem : public frc2::SubsystemBase {
 
         frc2::CommandPtr ClimbUp();
 
+        frc2::CommandPtr ClimbDown();
+
         void InitSendable(wpi::SendableBuilder& builder) override;
 
     private:
         //ctre::phoenix6::hardware::TalonFX A_Motor{12, can};
 
-        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0);
+        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
 };
