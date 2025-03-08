@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.132684426229508,
-        "y": 1.2977971311475414
+        "x": 7.1686475409836055,
+        "y": 4.030993852459016
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.379421971218798,
-        "y": 1.2575406547411536
+        "x": 7.418504167487319,
+        "y": 4.022528263750357
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.909938524590164,
-        "y": 1.2977971311475414
+        "x": 5.957889344262295,
+        "y": 4.030993852459016
       },
       "prevControl": {
-        "x": 6.7673049578862265,
-        "y": 1.3383598750014674
+        "x": 6.828262513819019,
+        "y": 4.033346343743371
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,14 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "CoralOuttake",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
