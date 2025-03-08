@@ -4,6 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [
     "Four-Auto",
+    "Single-Auto",
     "Test"
   ],
   "autoFolders": [],
