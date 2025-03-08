@@ -20,33 +20,23 @@ frc2::CommandPtr WristSubsystem::Wrist(const units::angle::turn_t turnPosition) 
 frc2::CommandPtr WristSubsystem::WristLeft(units::angle::turn_t turns) {
     return this->Run(
         [this, turns] {
-            m_request.Position += turns;
-            WristMotor.SetControl(m_request);
+            WristMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position.value() + turns));
 
             //WristMotor.Set(0.5);
         }
-    ).FinallyDo(
-        [this] {
-            //WristMotor.Set(0);
-            //WristMotor.SetControl(test);
-        }
-    );
+    )
+    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 
 frc2::CommandPtr WristSubsystem::WristRight(units::angle::turn_t turns) {
     return this->Run(
         [this, turns] {
-            m_request.Position -= turns;
-            WristMotor.SetControl(m_request);
+            WristMotor.SetControl(m_request.WithPosition((units::angle::turn_t)m_request.Position.value() - turns));
 
             //WristMotor.Set(-0.5);
         }
-    ).FinallyDo(
-        [this] {
-            //WristMotor.Set(0);
-            //WristMotor.SetControl(test);
-        }
-    );
+    )
+    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 
 void WristSubsystem::InitSendable(wpi::SendableBuilder& builder) { SubsystemBase::InitSendable(builder); }

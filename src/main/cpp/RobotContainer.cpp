@@ -55,10 +55,10 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_test.testtest());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
-        .WhileTrue(m_wrist.WristRight(0.1_tr));
+        .WhileTrue(m_wrist.WristRight(0.05_tr));
 
     joystick.LeftTrigger(0.5) //For Trigger handling
-        .WhileTrue(m_wrist.WristLeft(0.1_tr));
+        .WhileTrue(m_wrist.WristLeft(0.05_tr));
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper))
         .WhileTrue(m_intake.Intake());
