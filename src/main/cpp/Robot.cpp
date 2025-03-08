@@ -18,9 +18,11 @@ Robot::Robot() {
 
   WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
 
+  LowerIntake.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+  UpperIntake.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+
   TimerMagic = new frc::Timer;
   TimerMagic -> Start();
-
 
 
 // port 0 digital imput

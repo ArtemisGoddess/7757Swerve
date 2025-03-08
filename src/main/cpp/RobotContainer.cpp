@@ -55,10 +55,10 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_test.testtest());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
-        .WhileTrue(m_wrist.WristRight(0.01_tr));
+        .WhileTrue(m_wrist.WristRight(0.1_tr));
 
     joystick.LeftTrigger(0.5) //For Trigger handling
-        .WhileTrue(m_wrist.WristLeft(0.01_tr));
+        .WhileTrue(m_wrist.WristLeft(0.1_tr));
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper))
         .WhileTrue(m_intake.Intake());
@@ -77,9 +77,11 @@ void RobotContainer::ConfigureBindings() {
 
     joystick.POVDown()
         .WhileTrue(m_lift.LiftDown(1_tr));
-    
+
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
     drivetrain.GetModule(0);
+
+    
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
