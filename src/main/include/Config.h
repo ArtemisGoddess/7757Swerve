@@ -10,7 +10,7 @@
 #include <frc2/command/button/CommandXboxController.h>
 
 inline ctre::phoenix6::CANBus CAN{""}; //The main CAN network. Use this with everything.
-inline ctre::phoenix6::CANBus SwerveCAN{"SwerveMotors"}; //The swerve motor CANivore system. ONLY FOR THE SWERVE MODULES.
+inline ctre::phoenix6::CANBus SwerveCAN{"SwerveMotors"}; //The swerve motor CANivore system. ONLY FOR THE SWERVE MODULES AND PIGEON.
 
 inline frc::DigitalInput Distance{9};
 
@@ -32,6 +32,7 @@ inline ctre::phoenix6::hardware::TalonFX ClimberFollower2{22, CAN}; //Right
 inline ctre::phoenix6::hardware::TalonFX WristMotor{15, CAN}; //Top
 inline ctre::phoenix6::hardware::TalonFX WristFollower{16, CAN}; //Bottom
 
+inline frc::Timer *TimerMagic;
 
 inline std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&LiftMotor, &LiftFollower1, &LiftFollower2, &ClimberMotor, &ClimberFollower1, &ClimberFollower2, &WristMotor, &WristFollower}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
 
@@ -57,14 +58,19 @@ inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> 
 }
 
 //Goes in a for loop, increments position
-inline void incrmentPosition(ctre::phoenix6::controls::PositionVoltage m_request, units::angle::turn_t positionToReach, double incrementBy) {
-    if ((double)positionToReach > 0) {
-        if ((units::angle::turn_t)m_request.Position() < positionToReach) {
-            m_request.WithPosition((units::angle::turn_t)(m_request.Position() + incrementBy));
-        }
-    } else {
-        if ((units::angle::turn_t)m_request.Position() > positionToReach) {
-            m_request.WithPosition((units::angle::turn_t)(m_request.Position() + incrementBy));
+inline void incrmentPosition(ctre::phoenix6::controls::PositionVoltage m_request, units::angle::turn_t positionToReach, double incrementBy, double timeOver) {
+    TimerMagic -> Reset();
+    while (TimerMagic -> Get() <= (units::time::second_t)timeOver) {
+        if (TimerMagic -> Get() == (units::time::second_t)timeOver) {
+            if ((double)positionToReach > 0) {
+                if ((units::angle::turn_t)m_request.Position() < positionToReach) {
+                    m_request.WithPosition((units::angle::turn_t)(m_request.Position() + incrementBy));
+                }
+            } else {
+                if ((units::angle::turn_t)m_request.Position() > positionToReach) {
+                    m_request.WithPosition((units::angle::turn_t)(m_request.Position() + incrementBy));
+                }
+            }
         }
     }
 }

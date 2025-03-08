@@ -18,6 +18,9 @@ Robot::Robot() {
 
   WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
 
+  TimerMagic = new frc::Timer;
+  TimerMagic -> Start();
+
 
 
 // port 0 digital imput
