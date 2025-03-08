@@ -12,7 +12,7 @@ frc2::CommandPtr ClimberSubsystem::ClimbUp() {
     return this->RunOnce(
         [this] {
             while((units::angle::turn_t)m_request.Position() < 5_tr) {
-                incrmentPosition(m_request, 5_tr, 0.5, 0.05);
+                //incrmentPosition(m_request, 5_tr, 0.5, 0.05);
                 ClimberMotor.SetControl(m_request);
             }
         }
@@ -23,7 +23,7 @@ frc2::CommandPtr ClimberSubsystem::ClimbDown() {
     return this->RunOnce(
         [this] {
             while((units::angle::turn_t)m_request.Position() < -2_tr) {
-                incrmentPosition(m_request, -2_tr, 0.5, 0.05);
+                //incrmentPosition(m_request, -2_tr, 0.5, 0.05);
                 ClimberMotor.SetControl(m_request);
             }
         }
