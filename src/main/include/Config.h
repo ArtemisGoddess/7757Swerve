@@ -14,7 +14,7 @@ inline ctre::phoenix6::CANBus SwerveCAN{"SwerveMotors"}; //The swerve motor CANi
 
 inline frc::DigitalInput Distance{9};
 
-inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, SwerveCAN};
+inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, CAN};
 
 inline frc2::CommandXboxController joystick{0};
 
@@ -51,6 +51,7 @@ inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> 
     ctre::phoenix6::configs::TalonFXConfiguration config{};
     config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
     config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1); //KP for motor speed
+    config.MotorOutput.WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake);
 
     for (ctre::phoenix6::hardware::TalonFX* Talon : Talons) {
         Talon->GetConfigurator().Apply(config);
