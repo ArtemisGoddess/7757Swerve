@@ -16,7 +16,6 @@ class WristSubsystem : public frc2::SubsystemBase {
 
         frc2::CommandPtr Wrist(units::angle::turn_t turns); //For auto, and so I don't cry
 
-
         frc2::CommandPtr WristLeft(units::angle::turn_t turns);
 
         frc2::CommandPtr WristRight(units::angle::turn_t turns);
@@ -27,6 +26,7 @@ class WristSubsystem : public frc2::SubsystemBase {
         //ctre::phoenix6::hardware::TalonFX A_Motor{12, can};
 
         controls::PositionVoltage m_request = controls::PositionVoltage{-2_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
+        controls::MotionMagicVoltage m_request2{0_tr};
 
         controls::NeutralOut test = controls::NeutralOut{};
 };

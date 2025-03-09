@@ -46,7 +46,7 @@ void RobotContainer::ConfigureBindings() {
         // Drivetrain will execute this command periodically
         drivetrain.ApplyRequest([this]() -> auto&& {
             return drive.WithVelocityX(joystick.GetLeftY() * MaxSpeed) // Drive forward with Y (forward)
-                .WithVelocityY(-joystick.GetLeftX() * MaxSpeed) // Drive left with X (left)
+                .WithVelocityY(joystick.GetLeftX() * MaxSpeed) // Drive left with X (left)
                 .WithRotationalRate(-joystick.GetRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
         })
     );
@@ -66,7 +66,7 @@ void RobotContainer::ConfigureBindings() {
     joystick.RightTrigger(0.5)
         .WhileTrue(m_intake.Outtake());
     
-    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
+    /*(frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
         .OnTrue(m_climber.ClimbUp());
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kA))
@@ -76,7 +76,13 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_lift.LiftUp(1_tr));
 
     joystick.POVDown()
-        .WhileTrue(m_lift.LiftDown(1_tr));
+        .WhileTrue(m_lift.LiftDown(1_tr));*/
+    
+    joystick.POVDown()
+        .OnTrue(m_wrist.Wrist(1_tr));
+    
+    joystick.POVUp()
+        .OnTrue(m_wrist.Wrist(0_tr));
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
     drivetrain.GetModule(0);
