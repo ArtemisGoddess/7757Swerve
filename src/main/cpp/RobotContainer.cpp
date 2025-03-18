@@ -31,7 +31,7 @@ RobotContainer::RobotContainer() : m_vis(drivetrain) //Passes the drivetrain to 
     
 
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.Outtake()));
-    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(1_tr)));
+    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(2_tr)));
     pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.Intake()));
     pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(0_tr)));
     //pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
@@ -47,7 +47,7 @@ void RobotContainer::ConfigureBindings() {
         // Drivetrain will execute this command periodically
         drivetrain.ApplyRequest([this]() -> auto&& {
             return drive.WithVelocityX(joystick.GetLeftY() * MaxSpeed) // Drive forward with Y (forward)
-                .WithVelocityY(-joystick.GetLeftX() * MaxSpeed) // Drive left with X (left)
+                .WithVelocityY(joystick.GetLeftX() * MaxSpeed) // Drive left with X (left)
                 .WithRotationalRate(-joystick.GetRightX() * MaxAngularRate); // Drive counterclockwise with negative X (left)
         })
     );
@@ -80,7 +80,7 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_lift.LiftUp(1_tr));
 
     joystick.POVDown()
-        .WhileTrue(m_lift.LiftDown(1_tr));*/
+        .WhileTrue(m_lift.LiftDown(1_tr));
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
     drivetrain.GetModule(0);
@@ -92,6 +92,5 @@ void RobotContainer::ConfigureBindings() {
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-    return pathplanner::PathPlannerAuto("Drive-Forward")
-        .ToPtr();
+    return pathplanner::PathPlannerAuto("Drive-Forward").ToPtr();
 }

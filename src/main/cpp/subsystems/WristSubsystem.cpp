@@ -12,7 +12,7 @@ WristSubsystem::WristSubsystem() {}
 frc2::CommandPtr WristSubsystem::Wrist(const units::angle::turn_t turnPosition) { //For auto
     return this->RunOnce(
         [this, turnPosition] {
-            WristMotor.SetControl(m_request.WithPosition(turnPosition));
+            WristMotor.SetControl(m_request2.WithPosition(turnPosition));
         }
     );
 }

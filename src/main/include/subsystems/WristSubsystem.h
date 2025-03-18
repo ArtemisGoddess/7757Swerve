@@ -16,7 +16,6 @@ class WristSubsystem : public frc2::SubsystemBase {
 
         frc2::CommandPtr Wrist(units::angle::turn_t turns); //For auto, and so I don't cry
 
-
         frc2::CommandPtr WristLeft(units::angle::turn_t turns);
 
         frc2::CommandPtr WristRight(units::angle::turn_t turns);

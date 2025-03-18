@@ -9,6 +9,7 @@
 
 Robot::Robot() { 
   configMotorsDefault(TalonList);
+  //testConfig(TalonList);
   LiftFollower1.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
   LiftFollower2.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
 
