@@ -83,11 +83,7 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_lift.LiftDown(1_tr));
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
-    drivetrain.GetModule(0);
-
-    drivetrain.ApplyRequest([this]() -> auto&&{
-        return drive.WithRotationalRate(0.1_tps);
-    });
+    drivetrain.GetModule(0);*/
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
