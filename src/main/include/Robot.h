@@ -11,6 +11,8 @@
 #include <networktables/Topic.h>
 #include <ctre/phoenix6/Pigeon2.hpp>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc/Watchdog.h>
+#include <pathplanner/lib/commands/PathPlannerAuto.h>
 
 #include "RobotContainer.h"
 
@@ -34,11 +36,9 @@ class Robot : public frc::TimedRobot {
  private:
   std::optional<frc2::CommandPtr> m_autonomousCommand;
 
+  //frc2::CommandScheduler& scheduler = frc2::CommandScheduler::GetInstance();
+
   RobotContainer m_container;
   TestSubsystem m_test;
   IntakeSubsystem m_intake;
-
-  nt::NetworkTableInstance m_inst = nt::NetworkTableInstance::GetDefault();
-  std::shared_ptr<nt::NetworkTable> slam = m_inst.GetTable("slam");
-  std::shared_ptr<nt::NetworkTable> limelight = m_inst.GetTable("limelight");
 };

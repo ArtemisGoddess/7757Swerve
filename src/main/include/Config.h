@@ -12,6 +12,10 @@
 inline ctre::phoenix6::CANBus CAN{""}; //The main CAN network. Use this with everything.
 inline ctre::phoenix6::CANBus SwerveCAN{"SwerveMotors"}; //The swerve motor CANivore system. ONLY FOR THE SWERVE MODULES AND PIGEON.
 
+inline nt::NetworkTableInstance m_inst = nt::NetworkTableInstance::GetDefault();
+inline std::shared_ptr<nt::NetworkTable> slam = m_inst.GetTable("slam");
+inline std::shared_ptr<nt::NetworkTable> limelight = m_inst.GetTable("limelight");
+
 inline frc::DigitalInput Distance{9};
 
 inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, CAN};

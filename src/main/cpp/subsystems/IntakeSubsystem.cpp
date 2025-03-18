@@ -38,6 +38,4 @@ frc2::CommandPtr IntakeSubsystem::Outtake() {
     );
 }
 
-void IntakeSubsystem::InitSendable(wpi::SendableBuilder& builder) {
-    SubsystemBase::InitSendable(builder);
-}
+void IntakeSubsystem::InitSendable(wpi::SendableBuilder& builder) { SubsystemBase::InitSendable(builder); }

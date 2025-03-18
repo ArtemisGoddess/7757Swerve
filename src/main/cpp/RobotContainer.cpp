@@ -23,10 +23,11 @@
 //ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
 //ctre::phoenix6::hardware::TalonFX Test{11, can};
 
-RobotContainer::RobotContainer() 
+RobotContainer::RobotContainer() : m_vis(drivetrain) //Passes the drivetrain to the targetting subsystem so it may move
 {
     frc::Shuffleboard::GetTab("IntakeSubsystem").Add(m_intake);
     frc::Shuffleboard::GetTab("testSubsystem").Add(m_test);
+    
     
 
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.Outtake()));
@@ -54,7 +55,7 @@ void RobotContainer::ConfigureBindings() {
     /*(frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kX)) //Structured activator for the command pointers. NOTE YOU MUST SPECIFY WHAT 'm_turn' IS IN THE HEADER FILE
         .WhileTrue(m_test.testtest());*/
     
-    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
+    /*(frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
         .WhileTrue(m_wrist.WristRight(0.05_tr));
 
     joystick.LeftTrigger(0.5) //For Trigger handling
@@ -64,27 +65,33 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_intake.Intake());
     
     joystick.RightTrigger(0.5)
-        .WhileTrue(m_intake.Outtake());
+        .WhileTrue(m_intake.Outtake());*/
     
-    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
+    /*(frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
         .OnTrue(m_climber.ClimbUp());
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kA))
-        .OnTrue(m_climber.ClimbDown());
+        .OnTrue(m_climber.ClimbDown());*/
     
-    joystick.POVUp()
+    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kB))
+        .WhileTrue(m_vis.ScanForTarget());
+    
+    /*joystick.POVUp()
         .WhileTrue(m_lift.LiftUp(1_tr));
 
     joystick.POVDown()
-        .WhileTrue(m_lift.LiftDown(1_tr));
+        .WhileTrue(m_lift.LiftDown(1_tr));*/
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
     drivetrain.GetModule(0);
 
-    
+    drivetrain.ApplyRequest([this]() -> auto&&{
+        return drive.WithRotationalRate(0.1_tps);
+    });
 }
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-    return pathplanner::PathPlannerAuto("Drive-Forward").ToPtr();
+    return pathplanner::PathPlannerAuto("Drive-Forward")
+        .ToPtr();
 }

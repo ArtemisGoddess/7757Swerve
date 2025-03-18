@@ -26,7 +26,5 @@ class WristSubsystem : public frc2::SubsystemBase {
     private:
         //ctre::phoenix6::hardware::TalonFX A_Motor{12, can};
 
-        controls::PositionVoltage m_request = controls::PositionVoltage{-2_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
-
-        controls::NeutralOut test = controls::NeutralOut{};
+        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
 };
