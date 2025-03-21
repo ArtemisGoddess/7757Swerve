@@ -27,8 +27,6 @@ RobotContainer::RobotContainer() : m_vis(drivetrain) //Passes the drivetrain to 
 {
     frc::Shuffleboard::GetTab("IntakeSubsystem").Add(m_intake);
     frc::Shuffleboard::GetTab("testSubsystem").Add(m_test);
-    
-    
 
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.Outtake()));
     pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(2_tr)));

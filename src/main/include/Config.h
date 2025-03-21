@@ -22,8 +22,8 @@ inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, CAN};
 
 inline frc2::CommandXboxController joystick{0};
 
-inline ctre::phoenix::motorcontrol::can::VictorSPX UpperIntake{6}; //Self explainitory naming scheme
-inline ctre::phoenix::motorcontrol::can::VictorSPX LowerIntake{5};
+inline ctre::phoenix6::hardware::TalonFX UpperIntake{6, CAN}; //Self explainitory naming scheme
+inline ctre::phoenix6::hardware::TalonFX LowerIntake{5, CAN};
 
 inline ctre::phoenix6::hardware::TalonFX LiftMotor{99, CAN};
 inline ctre::phoenix6::hardware::TalonFX LiftFollower1{98, CAN};

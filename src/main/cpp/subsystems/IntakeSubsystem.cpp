@@ -13,13 +13,13 @@ IntakeSubsystem::IntakeSubsystem() {}
 frc2::CommandPtr IntakeSubsystem::Intake() {
     return this->Run(
         [this] {
-            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
-            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8);
+            LowerIntake.Set(0.8);
+            UpperIntake.Set(-0.8);
         }
     ).FinallyDo(
         [this] {
-            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.0);
+            LowerIntake.Set(0.0);
+            UpperIntake.Set(-0.0);
         }
     );
 }
@@ -27,13 +27,13 @@ frc2::CommandPtr IntakeSubsystem::Intake() {
 frc2::CommandPtr IntakeSubsystem::Outtake() {
     return this->Run(
         [this] {
-            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8);
-            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.8);
+            LowerIntake.Set(-0.8);
+            UpperIntake.Set(0.8);
         }
     ).FinallyDo(
         [this] {
-            LowerIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.0);
-            UpperIntake.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.0);
+            LowerIntake.Set(0.0);
+            UpperIntake.Set(-0.0);
         }
     );
 }
