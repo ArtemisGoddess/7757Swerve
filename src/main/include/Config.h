@@ -54,12 +54,11 @@ inline void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) {
 inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> Talons) {
     ctre::phoenix6::configs::TalonFXConfiguration config{};
     config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
-    config.Slot0.WithKP(4.4).WithKI(0).WithKD(0.1); //KP for motor speed
+    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1); //KP for motor speed
     config.MotorOutput.WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake);
 
     for (ctre::phoenix6::hardware::TalonFX* Talon : Talons) {
         Talon->GetConfigurator().Apply(config);
-        Talon->SetSafetyEnabled(false);
     }
 }
 
