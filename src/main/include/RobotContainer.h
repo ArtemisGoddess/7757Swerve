@@ -16,7 +16,7 @@
 #include "subsystems/ClimberSubsystem.h"
 #include "subsystems/WristSubsystem.h"
 #include "subsystems/LiftSubsystem.h"
-#include "subsystems/VisionTargettingSubsystem.h"
+#include "subsystems/localization/VisionTargettingSubsystem.h"
 
 //swerve::requests::ForwardPerspectiveValue FieldCentric = swerve::requests::ForwardPerspectiveValue::BlueAlliance;
 //swerve::requests::ForwardPerspectiveValue OperaterCentric = swerve::requests::ForwardPerspectiveValue::OperatorPerspective;

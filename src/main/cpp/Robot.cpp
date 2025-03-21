@@ -22,26 +22,15 @@ Robot::Robot() {
   UpperIntake.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 
   m_autonomousCommand = m_container.GetAutonomousCommand();
-
-  
-  //TimerMagic = new frc::Timer;
-  //TimerMagic -> Start();
-
-
-// port 0 digital imput
-// Y high
-// A low
 }
 
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
-  /*slam->PutNumber("VelocityX", m_container.drivetrain.GetState().Speeds.vx());
+  slam->PutNumber("VelocityX", m_container.drivetrain.GetState().Speeds.vx());
   slam->PutNumber("VelocityY", m_container.drivetrain.GetState().Speeds.vy());
   slam->PutNumber("PositionX", (double)m_container.drivetrain.GetState().Pose.X());
   slam->PutNumber("PositionY", (double)m_container.drivetrain.GetState().Pose.Y());
-  slam->PutNumber("PoseRot", (double)Pigey.GetYaw().GetValue());*/
-
-  //frc::SmartDashboard::PutNumber("Test Motor Value", m_intake.getRots());
+  slam->PutNumber("PoseRot", (double)Pigey.GetYaw().GetValue());
 }
 
 void Robot::DisabledInit() {}

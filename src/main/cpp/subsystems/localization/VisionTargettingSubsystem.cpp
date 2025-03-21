@@ -1,5 +1,5 @@
 #include <wpi/sendable/SendableBuilder.h>
-#include "subsystems/VisionTargettingSubsystem.h"
+#include "subsystems/localization/VisionTargettingSubsystem.h"
 #include "generated/TunerConstants.h"
 #include "RobotContainer.h"
 #include <frc/trajectory/TrapezoidProfile.h>
