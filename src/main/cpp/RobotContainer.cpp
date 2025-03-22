@@ -76,8 +76,8 @@ void RobotContainer::ConfigureBindings() {
     
     /*joystick.POVUp()
         .WhileTrue(m_lift.LiftUp(1_tr));
-
-    joystick.POVDown()
+        
+    joysti0ck.POVDown()
         .WhileTrue(m_lift.LiftDown(1_tr));*/
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
@@ -85,5 +85,5 @@ void RobotContainer::ConfigureBindings() {
 
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-    return pathplanner::PathPlannerAuto("Drive-Forward").ToPtr();
+    return pathplanner::PathPlannerAuto("Single-Score-Auto").ToPtr();
 }
