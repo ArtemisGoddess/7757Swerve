@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.96615429248301,
-        "y": 3.8700187875303023
+        "x": 7.529248052650808,
+        "y": 3.7779078071065815
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.802049180327868,
+        "x": 5.9818647540983605,
         "y": 3.7792520491803274
       },
       "prevControl": {
-        "x": 5.528057380822192,
-        "y": 3.7688602801974267
+        "x": 5.655352993641167,
+        "y": 3.7812343055163513
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,6 +33,17 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "Wrist-Up",
+      "waypointRelativePos": 0.7037213740458056,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Wrist-Up"
+        }
+      }
+    },
+    {
       "name": "CoralOuttake",
       "waypointRelativePos": 0.8964694656488562,
       "endWaypointRelativePos": 1.0,
@@ -40,6 +51,17 @@
         "type": "named",
         "data": {
           "name": "CoralOuttake"
+        }
+      }
+    },
+    {
+      "name": "Wrist-Down",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Wrist-Down"
         }
       }
     }
@@ -53,14 +75,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 0.0,
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Single-Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
