@@ -32,28 +32,20 @@ frc2::CommandPtr WristSubsystem::Wrist2() { //For auto
 frc2::CommandPtr WristSubsystem::WristLeft() {
     return this->Run(   
         [this] {
-            if (WristMotor.GetPosition().GetValue() < 0_tr) {
-                WristMotor.SetControl(m_request.WithPosition(0_tr));
-            } else {
-                WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() - 1_tr));
-            }
+            WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() - 1_tr));
         }
     )
-
+    .Until([this] {return WristMotor.GetPosition().GetValue() < 0_tr || WristMotor.GetPosition().GetValue() - 1_tr < 0_tr;})
     .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 
 frc2::CommandPtr WristSubsystem::WristRight() {
     return this->Run(
         [this] {
-            if (WristMotor.GetPosition().GetValue() > 2.76_tr) {
-                WristMotor.SetControl(m_request.WithPosition(2.76_tr));
-            } else { 
-                WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() + 0.5_tr));
-            }
-            //WristMotor.Set(-0.5);
+            WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() + 0.5_tr));
         }
     )
+    .Until([this] {return WristMotor.GetPosition().GetValue() > 2.76_tr || WristMotor.GetPosition().GetValue() + 0.5_tr > 2.76_tr;})
     .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 
