@@ -9,6 +9,7 @@
 
 Robot::Robot() { 
   configMotorsDefault(TalonList);
+  configWristDefault(WristTalonList);
   //testConfig(TalonList);
   LiftFollower1.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
   LiftFollower2.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
@@ -16,12 +17,11 @@ Robot::Robot() {
   ClimberFollower1.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
   ClimberFollower2.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
 
-  WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
-
   WristMotor.SetPosition(0_tr);
 
-  LowerIntake.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-  UpperIntake.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+  WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
+
+  LowerIntake.SetControl(controls::Follower(UpperIntake.GetDeviceID(), true)); //Follows upper
 
   m_autonomousCommand = m_container.GetAutonomousCommand();
 }
@@ -33,6 +33,8 @@ void Robot::RobotPeriodic() {
   slam->PutNumber("PositionX", (double)m_container.drivetrain.GetState().Pose.X());
   slam->PutNumber("PositionY", (double)m_container.drivetrain.GetState().Pose.Y());
   slam->PutNumber("PoseRot", (double)Pigey.GetYaw().GetValue());
+
+  m_inst.GetTable("Debuging")->PutNumber("test", (double)WristMotor.GetPosition().GetValue());
 }
 
 void Robot::DisabledInit() {}
@@ -55,6 +57,8 @@ void Robot::TeleopInit() {
   if (m_autonomousCommand) {
     m_autonomousCommand->Cancel();
   }
+  WristMotor.SetPosition(0_tr);
+
 }
 
 void Robot::TeleopPeriodic() {

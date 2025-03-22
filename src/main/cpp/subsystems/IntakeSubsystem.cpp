@@ -13,13 +13,16 @@ IntakeSubsystem::IntakeSubsystem() {}
 frc2::CommandPtr IntakeSubsystem::Intake() {
     return this->Run(
         [this] {
-            LowerIntake.Set(0.3);
             UpperIntake.Set(-0.3);
+            UpperIntake.SetPosition(0_tr);
+            UpperIntake.SetControl(m_request);
         }
     ).FinallyDo(
         [this] {
-            LowerIntake.Set(0.0);
             UpperIntake.Set(-0.0);
+            UpperIntake.SetPosition(0_tr);
+            UpperIntake.SetControl(m_request);
+
         }
     );
 }
@@ -27,13 +30,15 @@ frc2::CommandPtr IntakeSubsystem::Intake() {
 frc2::CommandPtr IntakeSubsystem::Outtake() {
     return this->Run(
         [this] {
-            LowerIntake.Set(-1);
             UpperIntake.Set(1);
+            //UpperIntake.SetPosition(0_tr);
+            //UpperIntake.SetControl(m_request);
         }
     ).FinallyDo(
         [this] {
-            LowerIntake.Set(0.0);
             UpperIntake.Set(-0.0);
+            //UpperIntake.SetPosition(0_tr);
+            //UpperIntake.SetControl(m_request);
         }
     );
 }
