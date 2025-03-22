@@ -14,14 +14,14 @@ frc2::CommandPtr IntakeSubsystem::Intake() {
     return this->Run(
         [this] {
             UpperIntake.Set(-0.3);
-            UpperIntake.SetPosition(0_tr);
-            UpperIntake.SetControl(m_request);
+            //UpperIntake.SetPosition(0_tr);
+            //UpperIntake.SetControl(m_request);
         }
     ).FinallyDo(
-        [this] {
+        [this] { 
             UpperIntake.Set(-0.0);
-            UpperIntake.SetPosition(0_tr);
-            UpperIntake.SetControl(m_request);
+            //UpperIntake.SetPosition(0_tr);
+            //UpperIntake.SetControl(m_request);
 
         }
     );
