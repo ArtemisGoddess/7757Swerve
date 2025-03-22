@@ -13,8 +13,8 @@ IntakeSubsystem::IntakeSubsystem() {}
 frc2::CommandPtr IntakeSubsystem::Intake() {
     return this->Run(
         [this] {
-            LowerIntake.Set(0.8);
-            UpperIntake.Set(-0.8);
+            LowerIntake.Set(0.3);
+            UpperIntake.Set(-0.3);
         }
     ).FinallyDo(
         [this] {
@@ -27,8 +27,8 @@ frc2::CommandPtr IntakeSubsystem::Intake() {
 frc2::CommandPtr IntakeSubsystem::Outtake() {
     return this->Run(
         [this] {
-            LowerIntake.Set(-0.8);
-            UpperIntake.Set(0.8);
+            LowerIntake.Set(-1);
+            UpperIntake.Set(1);
         }
     ).FinallyDo(
         [this] {

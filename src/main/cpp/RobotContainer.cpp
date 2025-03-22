@@ -65,11 +65,11 @@ void RobotContainer::ConfigureBindings() {
     joystick.RightTrigger(0.5)
         .WhileTrue(m_intake.Outtake());
     
-    (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
+    /*(frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
         .OnTrue(m_climber.ClimbUp());
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kA))
-        .OnTrue(m_climber.ClimbDown());
+        .OnTrue(m_climber.ClimbDown());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kB)) //coral alignment (Should work)
         .WhileTrue(m_vis.ScanForTarget());

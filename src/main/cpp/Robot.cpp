@@ -18,6 +18,8 @@ Robot::Robot() {
 
   WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
 
+  WristMotor.SetPosition(0_tr);
+
   LowerIntake.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
   UpperIntake.SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 

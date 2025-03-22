@@ -22,16 +22,16 @@ inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, CAN};
 
 inline frc2::CommandXboxController joystick{0};
 
-inline ctre::phoenix6::hardware::TalonFX UpperIntake{6, CAN}; //Self explainitory naming scheme
-inline ctre::phoenix6::hardware::TalonFX LowerIntake{5, CAN};
+inline ctre::phoenix6::hardware::TalonFX UpperIntake{12, CAN}; //Self explainitory naming scheme
+inline ctre::phoenix6::hardware::TalonFX LowerIntake{11, CAN};
 
 inline ctre::phoenix6::hardware::TalonFX LiftMotor{99, CAN};
 inline ctre::phoenix6::hardware::TalonFX LiftFollower1{98, CAN};
 inline ctre::phoenix6::hardware::TalonFX LiftFollower2{97, CAN};
 
-inline ctre::phoenix6::hardware::TalonFX ClimberMotor{100, CAN};
-inline ctre::phoenix6::hardware::TalonFX ClimberFollower1{101, CAN}; //Left
-inline ctre::phoenix6::hardware::TalonFX ClimberFollower2{102, CAN}; //Right
+inline ctre::phoenix6::hardware::TalonFX ClimberMotor{20, CAN};
+inline ctre::phoenix6::hardware::TalonFX ClimberFollower1{21, CAN}; //Left
+inline ctre::phoenix6::hardware::TalonFX ClimberFollower2{22, CAN}; //Right
 
 inline ctre::phoenix6::hardware::TalonFX WristMotor{15, CAN}; //Top
 inline ctre::phoenix6::hardware::TalonFX WristFollower{16, CAN}; //Bottom
@@ -54,7 +54,7 @@ inline void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) {
 inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> Talons) {
     ctre::phoenix6::configs::TalonFXConfiguration config{};
     config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
-    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1); //KP for motor speed
+    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1); //KP for motor speed << This is technically right and wrong
     config.MotorOutput.WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake);
 
     for (ctre::phoenix6::hardware::TalonFX* Talon : Talons) {
