@@ -14,7 +14,10 @@ class WristSubsystem : public frc2::SubsystemBase {
     public:
         WristSubsystem();
 
-        frc2::CommandPtr Wrist(units::angle::turn_t turns); //For auto, and so I don't cry
+        frc2::CommandPtr Wrist1(); //For auto, and so I don't cry
+
+                frc2::CommandPtr Wrist2(); //For auto, and so I don't cry
+
 
         frc2::CommandPtr WristLeft();
 
