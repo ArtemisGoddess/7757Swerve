@@ -34,12 +34,12 @@
   "eventMarkers": [
     {
       "name": "CoralOuttake",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
+      "waypointRelativePos": 0.8964694656488562,
+      "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
         "data": {
-          "name": "CoralOuttake"
+          "name": "CoralIntake"
         }
       }
     }
