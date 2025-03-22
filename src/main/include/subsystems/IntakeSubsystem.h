@@ -19,4 +19,6 @@ class IntakeSubsystem : public frc2::SubsystemBase {
         frc2::CommandPtr Outtake();
 
         void InitSendable(wpi::SendableBuilder& builder) override;
+    private:
+        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
 };

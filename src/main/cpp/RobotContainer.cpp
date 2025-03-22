@@ -29,9 +29,9 @@ RobotContainer::RobotContainer() : m_vis(drivetrain) //Passes the drivetrain to 
     frc::Shuffleboard::GetTab("testSubsystem").Add(m_test);
 
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.Outtake()));
-    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(2_tr)));
+    //pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(2_tr)));
     pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.Intake()));
-    pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(0_tr)));
+    //pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(0_tr)));
     //pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
     //pathplanner::NamedCommands::registerCommand("Lift-Down", std::move(m_lift.LiftDown(1_tr))); //Same with this one
     
@@ -54,10 +54,10 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_test.testtest());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
-        .WhileTrue(m_wrist.WristRight(0.05_tr));
+        .WhileTrue(m_wrist.WristRight());
 
     joystick.LeftTrigger(0.5) //For Trigger handling
-        .WhileTrue(m_wrist.WristLeft(0.05_tr));
+        .WhileTrue(m_wrist.WristLeft());
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper))
         .WhileTrue(m_intake.Intake());

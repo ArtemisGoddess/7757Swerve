@@ -38,7 +38,8 @@ inline ctre::phoenix6::hardware::TalonFX WristFollower{16, CAN}; //Bottom
 
 //inline frc::Timer *TimerMagic;
 
-inline std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&LiftMotor, &LiftFollower1, &LiftFollower2, &ClimberMotor, &ClimberFollower1, &ClimberFollower2, &WristMotor, &WristFollower}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
+inline std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&LiftMotor, &LiftFollower1, &LiftFollower2, &ClimberMotor, &ClimberFollower1, &ClimberFollower2, &UpperIntake, &LowerIntake}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
+inline std::vector<ctre::phoenix6::hardware::TalonFX*> WristTalonList{&WristMotor, &WristFollower}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
 
 //Configures a single motor for initial usage
 inline void configMotorDefault(ctre::phoenix6::hardware::TalonFX TalonFX) { 
@@ -56,6 +57,19 @@ inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> 
     config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
     config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1); //KP for motor speed << This is technically right and wrong
     config.MotorOutput.WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake);
+
+    for (ctre::phoenix6::hardware::TalonFX* Talon : Talons) {
+        Talon->GetConfigurator().Apply(config);
+    }
+}
+
+inline void configWristDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> Talons) {
+    ctre::phoenix6::configs::TalonFXConfiguration config{};
+    config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
+    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1); //KP for motor speed << This is technically right and wrong
+    config.Voltage.WithPeakForwardVoltage(12_V).WithPeakReverseVoltage(-12_V);
+    config.MotorOutput.WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake);
+    config.MotorOutput.WithInverted(true);
 
     for (ctre::phoenix6::hardware::TalonFX* Talon : Talons) {
         Talon->GetConfigurator().Apply(config);

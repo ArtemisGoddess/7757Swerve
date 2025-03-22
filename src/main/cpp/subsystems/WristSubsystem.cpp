@@ -14,25 +14,32 @@ frc2::CommandPtr WristSubsystem::Wrist(const units::angle::turn_t turnPosition) 
         [this, turnPosition] {
             WristMotor.SetControl(m_request.WithPosition(turnPosition));
         }
-    );
+    );  
 }
 
-frc2::CommandPtr WristSubsystem::WristLeft(units::angle::turn_t turns) {
-    return this->Run(
-        [this, turns] {
-            WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() + turns));
-
-            //WristMotor.Set(0.5);
+frc2::CommandPtr WristSubsystem::WristLeft() {
+    return this->Run(   
+        [this] {
+            if (WristMotor.GetPosition().GetValue() < 0_tr) {
+                WristMotor.SetControl(m_request.WithPosition(0_tr));
+            } else {
+                WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() - 1_tr));
+                WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
+            }
         }
     )
     .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 
-frc2::CommandPtr WristSubsystem::WristRight(units::angle::turn_t turns) {
+frc2::CommandPtr WristSubsystem::WristRight() {
     return this->Run(
-        [this, turns] {
-            WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() - turns));
-
+        [this] {
+            if (WristMotor.GetPosition().GetValue() > 2.76_tr) {
+                WristMotor.SetControl(m_request.WithPosition(2.76_tr));
+            } else { 
+                WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() + 0.5_tr));
+                WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
+            }
             //WristMotor.Set(-0.5);
         }
     )
