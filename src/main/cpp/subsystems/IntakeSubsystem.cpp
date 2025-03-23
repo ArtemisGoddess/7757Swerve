@@ -10,10 +10,10 @@
 
 IntakeSubsystem::IntakeSubsystem() {}
 
-frc2::CommandPtr IntakeSubsystem::Intake() {
+frc2::CommandPtr IntakeSubsystem::Intake(double speed) {
     return this->Run(
-        [this] {
-            UpperIntake.Set(-0.3);
+        [this, speed] {
+            UpperIntake.Set(speed);
             //UpperIntake.SetPosition(0_tr);
             //UpperIntake.SetControl(m_request);
         }
@@ -28,16 +28,16 @@ frc2::CommandPtr IntakeSubsystem::Intake() {
     );
 }
 
-frc2::CommandPtr IntakeSubsystem::Outtake() {
+frc2::CommandPtr IntakeSubsystem::Outtake(double speed) {
     return this->Run(
-        [this] {
-            UpperIntake.Set(1);
+        [this, speed] {
+            UpperIntake.Set(speed);
             //UpperIntake.SetPosition(0_tr);
             //UpperIntake.SetControl(m_request);
         }
     ).FinallyDo(
         [this] {
-            UpperIntake.Set(-0.0);
+            UpperIntake.Set(0);
             //UpperIntake.SetPosition(0_tr);
             //UpperIntake.SetControl(m_request);
         }

@@ -14,9 +14,9 @@ class IntakeSubsystem : public frc2::SubsystemBase {
     public:
         IntakeSubsystem();
 
-        frc2::CommandPtr Intake();
+        frc2::CommandPtr Intake(double speed);
 
-        frc2::CommandPtr Outtake();
+        frc2::CommandPtr Outtake(double speed);
 
         void InitSendable(wpi::SendableBuilder& builder) override;
     private:
