@@ -17,9 +17,9 @@ frc2::CommandPtr VisSubsystem::ScanForTarget() {
                 double tx = limelight->GetDoubleTopic("tx").GetEntry(0.0).Get();
 
                 if (tx > 5.0) {
-                    drivetrain.SetControl(drive.WithRotationalRate(-0.01_tps * tx).WithVelocityX(joystick.GetLeftY() * MaxSpeed).WithVelocityY(-joystick.GetLeftX() * MaxSpeed));
+                    drivetrain.SetControl(drive.WithRotationalRate(-0.01_tps * tx).WithVelocityX(-joystick.GetLeftY() * MaxSpeed).WithVelocityY(-joystick.GetLeftX() * MaxSpeed));
                 } else if (tx < -5.0) {
-                    drivetrain.SetControl(drive.WithRotationalRate(0.01_tps * -tx).WithVelocityX(joystick.GetLeftY() * MaxSpeed).WithVelocityY(-joystick.GetLeftX() * MaxSpeed));
+                    drivetrain.SetControl(drive.WithRotationalRate(0.01_tps * -tx).WithVelocityX(-joystick.GetLeftY() * MaxSpeed).WithVelocityY(-joystick.GetLeftX() * MaxSpeed));
                 }
             } else {
                 drivetrain.SetControl(drive.WithRotationalRate(0_tps).WithVelocityX(joystick.GetLeftY() * MaxSpeed).WithVelocityY(-joystick.GetLeftX() * MaxSpeed));
