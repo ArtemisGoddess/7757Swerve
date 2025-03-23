@@ -29,9 +29,9 @@ RobotContainer::RobotContainer() : m_vis(drivetrain) //Passes the drivetrain to 
     frc::Shuffleboard::GetTab("testSubsystem").Add(m_test);
 
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(m_intake.Intake()));
-    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist2()));
+    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(0_tr)));
     pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.Outtake()));
-    pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist1()));
+    pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(2.76_tr)));
     //pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
     //pathplanner::NamedCommands::registerCommand("Lift-Down", std::move(m_lift.LiftDown(1_tr))); //Same with this one
     

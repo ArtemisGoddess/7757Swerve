@@ -9,22 +9,12 @@
 
 WristSubsystem::WristSubsystem() {}
 
-frc2::CommandPtr WristSubsystem::Wrist1() { //For auto
+frc2::CommandPtr WristSubsystem::Wrist(units::turn_t position) { //For auto
     return this->RunOnce(
-        [this] {
-            WristMotor.SetControl(m_request.WithPosition(0_tr));
+        [this, position] {
+            WristMotor.SetControl(m_request.WithPosition(position));
         }
-    )
-    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
-}
-
-frc2::CommandPtr WristSubsystem::Wrist2() { //For auto
-    return this->RunOnce(
-        [this] {
-            WristMotor.SetControl(m_request.WithPosition(2_tr));
-        }
-    )
-    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
+    );
 }
 
 frc2::CommandPtr WristSubsystem::WristLeft() {
@@ -34,8 +24,7 @@ frc2::CommandPtr WristSubsystem::WristLeft() {
             WristMotor.SetControl(m_request.WithPosition(math));
         }
     )
-    .Until([this] {return std::max(WristMotor.GetPosition().GetValue() - 1_tr, 0_tr) <= 0_tr;})
-    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
+    .Until([this] {return std::max(WristMotor.GetPosition().GetValue() - 1_tr, 0_tr) <= 0_tr;});
 }
 
 frc2::CommandPtr WristSubsystem::WristRight() {
@@ -45,8 +34,7 @@ frc2::CommandPtr WristSubsystem::WristRight() {
             WristMotor.SetControl(m_request.WithPosition(math));
         }
     )
-    .Until([this] {return std::min(WristMotor.GetPosition().GetValue() + 0.5_tr, 2.76_tr) >= 2.76_tr;})
-    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
+    .Until([this] {return std::min(WristMotor.GetPosition().GetValue() + 0.5_tr, 2.76_tr) >= 2.76_tr;});
 }
 
 void WristSubsystem::InitSendable(wpi::SendableBuilder& builder) { SubsystemBase::InitSendable(builder); }
