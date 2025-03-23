@@ -9,40 +9,43 @@
 
 WristSubsystem::WristSubsystem() {}
 
-frc2::CommandPtr WristSubsystem::Wrist(const units::angle::turn_t turnPosition) { //For auto
+frc2::CommandPtr WristSubsystem::Wrist1() { //For auto
     return this->RunOnce(
-        [this, turnPosition] {
-            WristMotor.SetControl(m_request.WithPosition(turnPosition));
+        [this] {
+            WristMotor.SetControl(m_request.WithPosition(0_tr));
         }
-    );  
+    )
+    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
+}
+
+frc2::CommandPtr WristSubsystem::Wrist2() { //For auto
+    return this->RunOnce(
+        [this] {
+            WristMotor.SetControl(m_request.WithPosition(2_tr));
+        }
+    )
+    .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 
 frc2::CommandPtr WristSubsystem::WristLeft() {
     return this->Run(   
         [this] {
-            if (WristMotor.GetPosition().GetValue() < 0_tr) {
-                WristMotor.SetControl(m_request.WithPosition(0_tr));
-            } else {
-                WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() - 1_tr));
-                WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
-            }
+            units::angle::turn_t math = std::max(WristMotor.GetPosition().GetValue() - 1_tr, 0_tr);
+            WristMotor.SetControl(m_request.WithPosition(math));
         }
     )
+    .Until([this] {return std::max(WristMotor.GetPosition().GetValue() - 1_tr, 0_tr) <= 0_tr;})
     .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 
 frc2::CommandPtr WristSubsystem::WristRight() {
     return this->Run(
         [this] {
-            if (WristMotor.GetPosition().GetValue() > 2.76_tr) {
-                WristMotor.SetControl(m_request.WithPosition(2.76_tr));
-            } else { 
-                WristMotor.SetControl(m_request.WithPosition(WristMotor.GetPosition().GetValue() + 0.5_tr));
-                WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
-            }
-            //WristMotor.Set(-0.5);
+            units::angle::turn_t math = std::min(WristMotor.GetPosition().GetValue() + 0.5_tr, 2.76_tr);
+            WristMotor.SetControl(m_request.WithPosition(math));
         }
     )
+    .Until([this] {return std::min(WristMotor.GetPosition().GetValue() + 0.5_tr, 2.76_tr) >= 2.76_tr;})
     .WithInterruptBehavior(frc2::Command::InterruptionBehavior::kCancelSelf);
 }
 

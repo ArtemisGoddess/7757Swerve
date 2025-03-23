@@ -28,9 +28,10 @@ private:
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     swerve::requests::RobotCentric drive = swerve::requests::RobotCentric{}
+    //swerve::requests::FieldCentric drive = swerve::requests::FieldCentric{}
         //.WithForwardPerspective(swerve::requests::ForwardPerspectiveValue::OperatorPerspective)
         .WithDeadband(MaxSpeed * 0.1).WithRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
-        .WithDriveRequestType(swerve::DriveRequestType::OpenLoopVoltage); // Use open-loop control for drive motors
+        .WithDriveRequestType(swerve::DriveRequestType::OpenLoopVoltage); // Use open-loop control for drive motors 
     swerve::requests::SwerveDriveBrake brake{};
     swerve::requests::PointWheelsAt point{};
 

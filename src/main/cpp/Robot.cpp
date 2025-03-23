@@ -34,7 +34,7 @@ void Robot::RobotPeriodic() {
   slam->PutNumber("PositionY", (double)m_container.drivetrain.GetState().Pose.Y());
   slam->PutNumber("PoseRot", (double)Pigey.GetYaw().GetValue());
 
-  m_inst.GetTable("Debuging")->PutNumber("test", (double)WristMotor.GetPosition().GetValue());
+  //m_inst.GetTable("Debuging")->PutNumber("test", (double)WristMotor.GetPosition().GetValue());
 }
 
 void Robot::DisabledInit() {}
