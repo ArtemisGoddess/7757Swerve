@@ -10,7 +10,7 @@
 #include "Telemetry.h"
 #include <ctre/phoenix6/swerve/SwerveRequest.hpp>
 
-
+#include "subsystems/auto/AutoSubsystem.h"
 #include "subsystems/TestSubsystem.h" 
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/ClimberSubsystem.h"
@@ -54,5 +54,6 @@ private:
     ClimberSubsystem m_climber;
     WristSubsystem m_wrist;
     LiftSubsystem m_lift;
+    AutoSubsystem Auto;
     VisSubsystem m_vis{drivetrain};
 };

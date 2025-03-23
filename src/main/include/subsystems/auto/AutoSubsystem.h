@@ -13,6 +13,8 @@ class AutoSubsystem : public frc2::SubsystemBase {
     public:
         AutoSubsystem(); //initilizaer
 
+        frc2::CommandPtr Outtake();
+
         frc2::CommandPtr testPointer(); //Base CommandPtr function
 
         void InitSendable(wpi::SendableBuilder& builder) override; //Command scheduler
