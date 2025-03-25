@@ -39,6 +39,4 @@ class Robot : public frc::TimedRobot {
   //frc2::CommandScheduler& scheduler = frc2::CommandScheduler::GetInstance();
 
   RobotContainer m_container;
-  TestSubsystem m_test;
-  IntakeSubsystem m_intake;
 };
