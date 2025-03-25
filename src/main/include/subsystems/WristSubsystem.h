@@ -14,16 +14,32 @@ class WristSubsystem : public frc2::SubsystemBase {
     public:
         WristSubsystem();
 
-        frc2::CommandPtr Wrist(units::turn_t position); //For auto, and so I don't cry
+        void raise();
+        void lower();
+        void stop();
 
-        frc2::CommandPtr WristLeft();
+        void manualRaise(double speed);
 
-        frc2::CommandPtr WristRight();
+        void groundIntakePID();
+        void storePID(); //For reference, this means putting the wrist away. Rest position.
 
-        void InitSendable(wpi::SendableBuilder& builder) override;
+        void t1Coral();
+        void t2Coral();
+        void t3Coral();
+        void t4Coral();
+
+        void scoreNetAlgae();
+        void scoreProcessAlgae();
+
+        units::turn_t getPIDPosition();
+        bool isAtSetpoint();
+        bool isPutAway();
 
     private:
-        //ctre::phoenix6::hardware::TalonFX A_Motor{12, can};
-
-        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0).WithOverrideBrakeDurNeutral(true);
+        //Main wrist
+        ctre::phoenix6::hardware::TalonFX m_wrist{15, CAN};
+        //Wrist follower
+        ctre::phoenix6::hardware::TalonFX w_follower{16, CAN};
+        //Current setpoint for PID
+        units::turn_t m_setpoint = 0_tr;
 };

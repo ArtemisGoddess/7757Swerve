@@ -7,34 +7,83 @@
 #include <iostream>
 #include <ctre/phoenix/motorcontrol/ControlMode.h>
 
-WristSubsystem::WristSubsystem() {}
+WristSubsystem::WristSubsystem() {
+    m_setpoint = WristConstants::putAwayPID;
+    controls::PositionVoltage m_initial{m_setpoint};
+    controls::StrictFollower m_follow{WristConstants::mainWristID};
 
-frc2::CommandPtr WristSubsystem::Wrist(units::turn_t position) { //For auto
-    return this->RunOnce(
-        [this, position] {
-            WristMotor.SetControl(m_request.WithPosition(position));
-        }
-    );
+    ctre::phoenix6::configs::TalonFXConfiguration config{};
+        config.Feedback.WithFeedbackSensorSource(WristConstants::rotorSensor);
+        config.Slot0.WithKP(WristConstants::kP).WithKI(WristConstants::kI).WithKD(WristConstants::kD);
+        config.MotorOutput.WithNeutralMode(WristConstants::wristNeutral);
+    
+    m_wrist.GetConfigurator().Apply(config);
+    w_follower.GetConfigurator().Apply(config);
+
+    m_wrist.SetControl(m_initial);
+    w_follower.SetControl(m_follow);
 }
 
-frc2::CommandPtr WristSubsystem::WristLeft() {
-    return this->Run(   
-        [this] {
-            units::angle::turn_t math = std::max(WristMotor.GetPosition().GetValue() - 1_tr, 0_tr);
-            WristMotor.SetControl(m_request.WithPosition(math));
-        }
-    )
-    .Until([this] {return std::max(WristMotor.GetPosition().GetValue() - 1_tr, 0_tr) <= 0_tr;});
+void WristSubsystem::raise() {
+    m_wrist.Set(WristConstants::maxSpeed);
 }
 
-frc2::CommandPtr WristSubsystem::WristRight() {
-    return this->Run(
-        [this] {
-            units::angle::turn_t math = std::min(WristMotor.GetPosition().GetValue() + 0.5_tr, 2.76_tr);
-            WristMotor.SetControl(m_request.WithPosition(math));
-        }
-    )
-    .Until([this] {return std::min(WristMotor.GetPosition().GetValue() + 0.5_tr, 2.76_tr) >= 2.76_tr;});
+void WristSubsystem::lower() {
+    m_wrist.Set(WristConstants::minSpeed);
 }
 
-void WristSubsystem::InitSendable(wpi::SendableBuilder& builder) { SubsystemBase::InitSendable(builder); }
+void WristSubsystem::stop() {
+    m_wrist.Set(WristConstants::stopSpeed);
+}
+
+void WristSubsystem::manualRaise(double speed) {
+    m_wrist.Set(speed);
+}
+
+void WristSubsystem::groundIntakePID() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::groundIntakePID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::groundIntakePID;
+}
+
+void WristSubsystem::storePID() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::putAwayPID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::putAwayPID;
+}
+
+void WristSubsystem::t1Coral() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::t1PID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::t1PID;
+}
+
+void WristSubsystem::t2Coral() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::t2PID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::t2PID;
+}
+
+void WristSubsystem::t3Coral() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::t3PID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::t3PID;
+}
+
+void WristSubsystem::t4Coral() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::t4PID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::t4PID;
+}
+
+units::turn_t WristSubsystem::getPIDPosition() {
+    return m_wrist.GetPosition().GetValue();
+}
+
+bool WristSubsystem::isAtSetpoint() {
+    return (std::abs(double(m_setpoint) - m_wrist.GetPosition().GetValueAsDouble()) <= WristConstants::PIDTolerance);
+}
+
+bool WristSubsystem::isPutAway() {
+    return (std::abs(double(WristConstants::putAwayPID) - m_wrist.GetPosition().GetValueAsDouble()) <= WristConstants::PIDTolerance);
+}
