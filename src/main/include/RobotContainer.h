@@ -50,10 +50,9 @@ private:
     void ConfigureBindings();
 
     TestSubsystem m_test; //This registers and allows the use of the subsystems
-    IntakeSubsystem m_intake;
+    IntakeSubsystem m_intakeSubsystem;
     ClimberSubsystem m_climber;
-    WristSubsystem m_wrist;
+    WristSubsystem m_wristSubsystem;
     LiftSubsystem m_lift;
-    AutoSubsystem Auto;
     VisSubsystem m_vis{drivetrain};
 };

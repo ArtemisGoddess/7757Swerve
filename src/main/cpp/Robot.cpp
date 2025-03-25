@@ -9,19 +9,11 @@
 
 Robot::Robot() { 
   configMotorsDefault(TalonList);
-  configWristDefault(WristTalonList);
-  //testConfig(TalonList);
   LiftFollower1.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
   LiftFollower2.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
 
   ClimberFollower1.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
   ClimberFollower2.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
-
-  WristMotor.SetPosition(0_tr);
-
-  WristFollower.SetControl(controls::Follower(WristMotor.GetDeviceID(), false));
-
-  LowerIntake.SetControl(controls::Follower(UpperIntake.GetDeviceID(), true)); //Follows upper
 
   m_autonomousCommand = m_container.GetAutonomousCommand();
 }
@@ -57,8 +49,6 @@ void Robot::TeleopInit() {
   if (m_autonomousCommand) {
     m_autonomousCommand->Cancel();
   }
-  WristMotor.SetPosition(0_tr);
-
 }
 
 void Robot::TeleopPeriodic() {

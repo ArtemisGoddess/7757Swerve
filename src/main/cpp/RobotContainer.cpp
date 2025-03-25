@@ -6,6 +6,11 @@
 #include "Telemetry.h"
 #include "Config.h"
 
+#include "commands/StoreWrist.h"
+#include "commands/TeleopWrist.h"
+#include "commands/Intake.h"
+#include "commands/Outtake.h"
+
 #include <frc2/command/Commands.h>
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/Command.h>
@@ -25,13 +30,11 @@
 
 RobotContainer::RobotContainer() : m_vis(drivetrain) //Passes the drivetrain to the targetting subsystem so it may move
 {
-    frc::Shuffleboard::GetTab("IntakeSubsystem").Add(m_intake);
-    frc::Shuffleboard::GetTab("testSubsystem").Add(m_test);
-
-    pathplanner::NamedCommands::registerCommand("CoralIntake", std::move(m_intake.RunIntake(-0.3)));
-    pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(0_tr)));
-    pathplanner::NamedCommands::registerCommand("CoralOuttake", std::move(Auto.Outtake()));
-    pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(2.76_tr)));
+    pathplanner::NamedCommands::registerCommand("CoralOuttake", std::make_shared<Intake>(&m_intakeSubsystem, 0.3)); //This is technically the outtake for the coral
+    pathplanner::NamedCommands::registerCommand("CoralIntake", std::make_shared<Outtake>(&m_intakeSubsystem, 0.3)); //This is technically the intake for the coral
+    //pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(0_tr)));
+    
+    //pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(2.76_tr)));
     //pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
     //pathplanner::NamedCommands::registerCommand("Lift-Down", std::move(m_lift.LiftDown(1_tr))); //Same with this one
     
@@ -54,16 +57,16 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_test.testtest());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
-        .WhileTrue(m_wrist.WristRight());
+        .OnTrue(new TeleopWrist(&m_wristSubsystem, 1));
 
     joystick.LeftTrigger(0.5) //For Trigger handling
-        .WhileTrue(m_wrist.WristLeft());
+        .OnTrue(new TeleopWrist(&m_wristSubsystem, -1));
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper))
-        .WhileTrue(m_intake.RunIntake(-0.3));
+        .WhileTrue(new Outtake(&m_intakeSubsystem, 0.8));
     
     joystick.RightTrigger(0.5)
-        .WhileTrue(m_intake.RunIntake(1.0));
+        .WhileTrue(new Intake(&m_intakeSubsystem, 0.8));
     
     /*(frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kY)) //Climbing Calls
         .OnTrue(m_climber.ClimbUp());
