@@ -6,10 +6,11 @@
 #include "Telemetry.h"
 #include "Config.h"
 
-#include "commands/StoreWrist.h"
+#include "commands/WristRestPID.h"
 #include "commands/TeleopWrist.h"
 #include "commands/Intake.h"
 #include "commands/Outtake.h"
+#include "commands/AlignAndDrive.h"
 
 #include <frc2/command/Commands.h>
 #include <frc2/command/button/JoystickButton.h>
@@ -28,15 +29,10 @@
 //ctre::phoenix6::CANBus can{"", "./logs/example.hoot"};
 //ctre::phoenix6::hardware::TalonFX Test{11, can};
 
-RobotContainer::RobotContainer() : m_vis(drivetrain) //Passes the drivetrain to the targetting subsystem so it may move
+RobotContainer::RobotContainer()//Passes the drivetrain to the targetting subsystem so it may move
 {
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::make_shared<Intake>(&m_intakeSubsystem, 0.3)); //This is technically the outtake for the coral
     pathplanner::NamedCommands::registerCommand("CoralIntake", std::make_shared<Outtake>(&m_intakeSubsystem, 0.3)); //This is technically the intake for the coral
-    //pathplanner::NamedCommands::registerCommand("Wrist-Up", std::move(m_wrist.Wrist(0_tr)));
-    
-    //pathplanner::NamedCommands::registerCommand("Wrist-Down", std::move(m_wrist.Wrist(2.76_tr)));
-    //pathplanner::NamedCommands::registerCommand("Lift-Up", std::move(m_lift.LiftUp(1_tr))); //This is a run command, might need to be changed for your needs m8
-    //pathplanner::NamedCommands::registerCommand("Lift-Down", std::move(m_lift.LiftDown(1_tr))); //Same with this one
     
     ConfigureBindings();
 }
@@ -57,10 +53,10 @@ void RobotContainer::ConfigureBindings() {
         .WhileTrue(m_test.testtest());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Self explainitory
-        .OnTrue(new TeleopWrist(&m_wristSubsystem, 1));
+        .WhileTrue(new TeleopWrist(&m_wristSubsystem, 0.3_tr));
 
     joystick.LeftTrigger(0.5) //For Trigger handling
-        .OnTrue(new TeleopWrist(&m_wristSubsystem, -1));
+        .WhileTrue(new TeleopWrist(&m_wristSubsystem, -0.3_tr));
 
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kRightBumper))
         .WhileTrue(new Outtake(&m_intakeSubsystem, 0.8));
@@ -75,7 +71,7 @@ void RobotContainer::ConfigureBindings() {
         .OnTrue(m_climber.ClimbDown());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kB)) //coral alignment (Should work)
-        .WhileTrue(m_vis.ScanForTarget());
+        .WhileTrue(new AlignAndDrive(&m_visionSubsystem, &drivetrain, false)); //new WristRestPID(&m_wristSubsystem)
     
     /*joystick.POVUp()
         .WhileTrue(m_lift.LiftUp(1_tr));

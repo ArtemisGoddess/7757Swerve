@@ -18,19 +18,15 @@ inline std::shared_ptr<nt::NetworkTable> limelight = m_inst.GetTable("limelight"
 
 inline frc::DigitalInput Distance{9};
 
-inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, CAN};
+inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, SwerveCAN};
 
 inline frc2::CommandXboxController joystick{0};
-
-inline ctre::phoenix6::hardware::TalonFX LiftMotor{99, CAN};
-inline ctre::phoenix6::hardware::TalonFX LiftFollower1{98, CAN};
-inline ctre::phoenix6::hardware::TalonFX LiftFollower2{97, CAN};
 
 inline ctre::phoenix6::hardware::TalonFX ClimberMotor{20, CAN};
 inline ctre::phoenix6::hardware::TalonFX ClimberFollower1{21, CAN}; //Left
 inline ctre::phoenix6::hardware::TalonFX ClimberFollower2{22, CAN}; //Right
 
-inline std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&LiftMotor, &LiftFollower1, &LiftFollower2, &ClimberMotor, &ClimberFollower1, &ClimberFollower2}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
+inline std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&ClimberMotor, &ClimberFollower1, &ClimberFollower2}; //A list of all the Talon Motors. Can be used in the multi-talon default config setup
 
 //Configures a vector of motors for initial usage
 inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> Talons) {
@@ -44,6 +40,14 @@ inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> 
     }
 }
 
+
+//Not to be confused with TunerConstants, this is for subsystem control.
+class DrivebaseConstants {
+    public:
+        static constexpr units::radians_per_second_t MaxAngularRate = 0.75_tps;
+        static constexpr units::meters_per_second_t MaxSpeed = 4.73_mps;
+};
+
 class WristConstants {
     public:
         //Base settings
@@ -54,14 +58,14 @@ class WristConstants {
         static constexpr double maxSpeed = 0.8;
         static constexpr double minSpeed = -0.8;
         static constexpr int stopSpeed = 0;
-        static constexpr double PIDTolerance = 0.03;
+        static constexpr double PIDTolerance = 0.05;
         static constexpr double kP = 2.4;
         static constexpr int kI = 0;
         static constexpr int kD = 0;
 
         //PID for intake/storing
-        static constexpr units::turn_t putAwayPID = 0_tr;
-        static constexpr units::turn_t groundIntakePID = 2.76_tr;
+        static constexpr units::turn_t restPID = 0_tr;
+        static constexpr units::turn_t maxPID = 2.76_tr;
 
         //PID for coral scoring
         static constexpr units::turn_t t1PID = 0_tr;
@@ -73,6 +77,7 @@ class WristConstants {
         static constexpr double coralSpeed = 0.3;
 
         //PID for algae scoring
+        static constexpr units::turn_t collectAlgaePID = 2.76_tr;
         static constexpr units::turn_t netScorePID = 0_tr;
         static constexpr units::turn_t processScorePID = 0_tr;
 
@@ -83,15 +88,23 @@ class WristConstants {
 class LiftConstants {
     public:
         //Base settings
+        static constexpr int mainLiftID = 99;
+        static constexpr int followerLiftID1 = 98;
+        static constexpr int followerLiftID2 = 97;
+        static constexpr int rotorSensor = 0;
         static constexpr int liftNeutral = 1;
         static constexpr double maxSpeed = 0.8;
         static constexpr double minSpeed = -0.8;
         static constexpr int stopSpeed = 0;
-        static constexpr double PIDTolerance = 0.03;
+        static constexpr double PIDTolerance = 0.05;
+        static constexpr double kP = 2.4;
+        static constexpr int kI = 0;
+        static constexpr int kD = 0;
 
-        //PID for intake/storing
-        static constexpr units::turn_t putAwayPID = 0_tr;
-        static constexpr units::turn_t collectAlgae = 0_tr;
+        //PID for intake/storing/maximum position
+        static constexpr units::turn_t restPID = 0_tr;
+        static constexpr units::turn_t maxPID = 4_tr;
+        
 
         //PID for coral scoring
         static constexpr units::turn_t t1PID = 0_tr;
@@ -106,6 +119,7 @@ class LiftConstants {
         static constexpr int coralkD = 0;
 
         //PID for algae scoring
+        static constexpr units::turn_t collectAlgaePID = 0_tr;
         static constexpr units::turn_t netScorePID = 0_tr;
         static constexpr units::turn_t processScorePID = 0_tr;
 
