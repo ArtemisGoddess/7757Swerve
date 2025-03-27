@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.653480682693481,
-        "y": 4.343875416074714
+        "x": 7.6718193640798775,
+        "y": 4.357641985937485
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 4.354661885245902
       },
       "prevControl": {
-        "x": 5.776271800395338,
-        "y": 4.363248854519672
+        "x": 5.935656235997237,
+        "y": 4.354162740065693
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,13 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Wrist-Down",
+      "name": "WristDown",
       "waypointRelativePos": 0.6025763358778833,
-      "endWaypointRelativePos": null,
+      "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
         "data": {
-          "name": "Wrist-Down"
+          "name": "WristDown"
         }
       }
     },
@@ -65,13 +65,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Single-Auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
