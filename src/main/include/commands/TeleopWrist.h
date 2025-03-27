@@ -6,7 +6,7 @@
 
 class TeleopWrist : public frc2::CommandHelper<frc2::Command, TeleopWrist> {
 public:
-    TeleopWrist(WristSubsystem* wrist, double speed);
+    TeleopWrist(WristSubsystem* wrist, units::turn_t speed);
 
     void Initialize() override;
     void Execute() override;
@@ -15,5 +15,5 @@ public:
 
 private:
     WristSubsystem* m_wrist;
-    double m_speed;
+    units::turn_t m_speed;
 };

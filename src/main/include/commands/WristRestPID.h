@@ -4,9 +4,9 @@
 #include <frc2/command/Command.h>
 #include "subsystems/WristSubsystem.h"
 
-class StoreWrist : public frc2::CommandHelper<frc2::Command, StoreWrist> {
+class WristRestPID : public frc2::CommandHelper<frc2::Command, WristRestPID> {
 public:
-    StoreWrist(WristSubsystem* wrist);
+    WristRestPID(WristSubsystem* wrist);
 
     void Initialize() override;
     void Execute() override;
