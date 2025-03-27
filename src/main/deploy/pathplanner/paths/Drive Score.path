@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 5.838012295081967,
+        "x": 6.185655737704918,
         "y": 4.354661885245902
       },
       "prevControl": {
-        "x": 5.428628357772387,
+        "x": 5.776271800395338,
         "y": 4.363248854519672
       },
       "nextControl": null,
@@ -32,6 +32,17 @@
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
+    {
+      "name": "Wrist-Down",
+      "waypointRelativePos": 0.6025763358778833,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Wrist-Down"
+        }
+      }
+    },
     {
       "name": "CoralOuttake",
       "waypointRelativePos": 0.8392175572519129,
