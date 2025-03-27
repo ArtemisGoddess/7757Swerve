@@ -30,6 +30,7 @@ class WristSubsystem : public frc2::SubsystemBase {
         void t3Coral();
         void t4Coral();
 
+        void ReefAlgae();
         void scoreNetAlgae();
         void scoreProcessAlgae();
 
