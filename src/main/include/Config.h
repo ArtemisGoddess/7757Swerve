@@ -68,7 +68,7 @@ class WristConstants {
         static constexpr units::turn_t maxPID = 2.76_tr;
 
         //PID for coral scoring
-        static constexpr units::turn_t t1PID = 0_tr;
+        static constexpr units::turn_t t1PID = 2_tr;
         static constexpr units::turn_t t2PID = 0_tr;
         static constexpr units::turn_t t3PID = 0_tr;
         static constexpr units::turn_t t4PID = 0_tr;

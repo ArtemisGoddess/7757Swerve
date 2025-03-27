@@ -11,6 +11,7 @@
 #include "commands/Intake.h"
 #include "commands/Outtake.h"
 #include "commands/AlignAndDrive.h"
+#include "commands/WristAuto.h"
 
 #include <frc2/command/Commands.h>
 #include <frc2/command/button/JoystickButton.h>
@@ -33,7 +34,8 @@ RobotContainer::RobotContainer()//Passes the drivetrain to the targetting subsys
 {
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::make_shared<Intake>(&m_intakeSubsystem, 0.3)); //This is technically the outtake for the coral
     pathplanner::NamedCommands::registerCommand("CoralIntake", std::make_shared<Outtake>(&m_intakeSubsystem, 0.3)); //This is technically the intake for the coral
-    
+    pathplanner::NamedCommands::registerCommand("WristDown", std::make_shared<WristAuto>(&m_wristSubsystem));
+    pathplanner::NamedCommands::registerCommand("WristUp", std::make_shared<WristRestPID>(&m_wristSubsystem));
     ConfigureBindings();
 }
 
