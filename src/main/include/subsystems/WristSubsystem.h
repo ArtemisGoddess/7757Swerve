@@ -18,10 +18,12 @@ class WristSubsystem : public frc2::SubsystemBase {
         void lower();
         void stop();
 
-        void manualRaise(double speed);
+        void manualRaise(units::turn_t speed);
 
-        void groundIntakePID();
-        void storePID(); //For reference, this means putting the wrist away. Rest position.
+        void setPID(units::turn_t position); //For manual control. Do not use this, use the other functions.
+
+        void collectAlgaePID();
+        void restPID(); //Rest position.
 
         void t1Coral();
         void t2Coral();
@@ -33,7 +35,7 @@ class WristSubsystem : public frc2::SubsystemBase {
 
         units::turn_t getPIDPosition();
         bool isAtSetpoint();
-        bool isPutAway();
+        bool isAtRest();
 
     private:
         //Main wrist

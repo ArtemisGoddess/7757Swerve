@@ -14,12 +14,36 @@ class LiftSubsystem : public frc2::SubsystemBase {
     public:
         LiftSubsystem();
 
-        frc2::CommandPtr LiftUp(const units::angle::turn_t turns);
+        void raise();
+        void lower();
+        void stop();
 
-        frc2::CommandPtr LiftDown(const units::angle::turn_t turns);
+        void manualRaise(units::turn_t speed);
 
-        void InitSendable(wpi::SendableBuilder& builder) override;
+        void setPID(units::turn_t position); //For manual control. Do not use this, use the other functions.
+
+        void collectAlgaePID(); 
+        void restPID(); //Rest position
+
+        void t1Coral();
+        void t2Coral();
+        void t3Coral();
+        void t4Coral();
+
+        void scoreNetAlgae();
+        void scoreProcessAlgae();
+
+        units::turn_t getPIDPosition();
+        bool isAtSetpoint();
+        bool isAtRest();
     
     private:
-        controls::PositionVoltage m_request = controls::PositionVoltage{0_tr}.WithSlot(0);
+        //Main lift
+        ctre::phoenix6::hardware::TalonFX m_lift{LiftConstants::mainLiftID, CAN};
+        //Lift follower 1
+        ctre::phoenix6::hardware::TalonFX l_follower1{LiftConstants::followerLiftID1, CAN};
+        //Lift follower 1
+        ctre::phoenix6::hardware::TalonFX l_follower2{LiftConstants::followerLiftID2, CAN};
+        //Current setpoint for PID
+        units::turn_t m_setpoint = 0_tr;
 };

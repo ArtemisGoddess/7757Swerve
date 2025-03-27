@@ -1,6 +1,6 @@
 #include "commands/TeleopWrist.h"
 
-TeleopWrist::TeleopWrist(WristSubsystem* wrist, double speed) 
+TeleopWrist::TeleopWrist(WristSubsystem* wrist, units::turn_t speed) 
     : m_wrist(wrist), m_speed(speed) {
     AddRequirements({wrist});
 }
@@ -8,13 +8,13 @@ TeleopWrist::TeleopWrist(WristSubsystem* wrist, double speed)
 void TeleopWrist::Initialize() { }
 
 void TeleopWrist::Execute() {
-    if (m_wrist->getPIDPosition() >= WristConstants::groundIntakePID || m_wrist->getPIDPosition() <= WristConstants::putAwayPID) {
-        m_wrist->manualRaise(m_speed);
-    }
+    m_wrist->manualRaise(m_speed);
 }
 
-void TeleopWrist::End(bool interrupted) { }
+void TeleopWrist::End(bool interrupted) { 
+    m_wrist->stop();
+}
 
 bool TeleopWrist::IsFinished() {
-    return false;
+    return false; 
 }

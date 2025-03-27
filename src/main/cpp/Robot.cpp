@@ -9,13 +9,13 @@
 
 Robot::Robot() { 
   configMotorsDefault(TalonList);
-  LiftFollower1.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
-  LiftFollower2.SetControl(controls::Follower(LiftMotor.GetDeviceID(), false));
 
   ClimberFollower1.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
   ClimberFollower2.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
 
   m_autonomousCommand = m_container.GetAutonomousCommand();
+
+  ctre::phoenix6::SignalLogger::Stop();
 }
 
 void Robot::RobotPeriodic() {
