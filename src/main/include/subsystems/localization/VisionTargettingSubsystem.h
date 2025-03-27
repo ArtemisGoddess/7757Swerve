@@ -13,15 +13,15 @@
 
 class VisSubsystem : public frc2::SubsystemBase {
     public:
-        VisSubsystem(subsystems::CommandSwerveDrivetrain& drivetrain);
+        VisSubsystem();
 
-        frc2::CommandPtr ScanForTarget();
+        bool seesColor();
+        bool seesAprilTag();
 
-        void InitSendable(wpi::SendableBuilder& builder) override;
+        void alignDrivebase(bool aprilTags, subsystems::CommandSwerveDrivetrain* drivetrain);
+        void alignAndDrive(bool aprilTags, subsystems::CommandSwerveDrivetrain* drivetrain);
 
     private:
-        subsystems::CommandSwerveDrivetrain& drivetrain;
-        units::radians_per_second_t MaxAngularRate = 0.75_tps;
-        units::meters_per_second_t MaxSpeed = 4.73_mps;
         swerve::requests::RobotCentric drive = swerve::requests::RobotCentric{};
+        int tagID;
 };
