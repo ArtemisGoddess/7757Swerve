@@ -77,9 +77,12 @@ class WristConstants {
         static constexpr double coralSpeed = 0.3;
 
         //PID for algae scoring
+        static constexpr units::turn_t ReefAlgaePID = 1_tr;
         static constexpr units::turn_t collectAlgaePID = 3.14_tr; //This may be incorrect. More testing is needed.
         static constexpr units::turn_t netScorePID = 0_tr;
         static constexpr units::turn_t processScorePID = 0_tr;
+
+        
 
         //Constants for algae
         static constexpr double algaeSpeed = 0.3;

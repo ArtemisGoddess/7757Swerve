@@ -91,6 +91,12 @@ void WristSubsystem::t4Coral() {
     m_setpoint = WristConstants::t4PID;
 }
 
+void WristSubsystem::ReefAlgae(){
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::ReefAlgaePID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::ReefAlgaePID;
+}
+
 units::turn_t WristSubsystem::getPIDPosition() {
     return m_wrist.GetPosition().GetValue();
 }
