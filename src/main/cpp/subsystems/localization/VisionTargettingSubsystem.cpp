@@ -1,10 +1,6 @@
-#include <wpi/sendable/SendableBuilder.h>
 #include "subsystems/localization/VisionTargettingSubsystem.h"
 #include "generated/TunerConstants.h"
 #include "RobotContainer.h"
-#include <frc/trajectory/TrapezoidProfile.h>
-#include <frc/controller/PIDController.h>
-#include <iostream>
 #include <ctre/phoenix/motorcontrol/ControlMode.h>
 
 VisSubsystem::VisSubsystem() {
@@ -15,11 +11,13 @@ VisSubsystem::VisSubsystem() {
 
 //pulls from the limelight if it sees color or not
 bool VisSubsystem::seesColor() {
+    limelight->PutNumber("getpipe", 0.0);
     return bool(limelight->GetDoubleTopic("tv").GetEntry(0.0).Get());
 }
 
 
-void VisSubsystem::alignDrivebase(bool aprilTags, subsystems::CommandSwerveDrivetrain* drivetrain) {
+void VisSubsystem::alignDrivebase(subsystems::CommandSwerveDrivetrain* drivetrain) {
+    limelight->PutNumber("getpipe", 0.0);
     double tx = limelight->GetDoubleTopic("tx").GetEntry(0.0).Get(); //The offset from the camera on the x axis
 
     if (bool(limelight->GetDoubleTopic("tv").GetEntry(0.0).Get())) {
@@ -35,7 +33,8 @@ void VisSubsystem::alignDrivebase(bool aprilTags, subsystems::CommandSwerveDrive
 * - When aprilTags is true, drives towards the closest reef april tag it sees.
 * - When aprilTags is false, drives towards pipeline zero's color calibration
 */
-void VisSubsystem::alignAndDrive(bool aprilTags, subsystems::CommandSwerveDrivetrain* drivetrain) {
+void VisSubsystem::alignAndDrive(subsystems::CommandSwerveDrivetrain* drivetrain) {
+    limelight->PutNumber("getpipe", 0.0);
     double tx = limelight->GetDoubleTopic("tx").GetEntry(0.0).Get(); //The offset from the camera on the x axis
 
     if (bool(limelight->GetDoubleTopic("tv").GetEntry(0.0).Get())) {
@@ -46,3 +45,19 @@ void VisSubsystem::alignAndDrive(bool aprilTags, subsystems::CommandSwerveDrivet
         }
     }
 }
+
+bool VisSubsystem::seesAprilTag() {
+    limelight->PutNumber("getpipe", 1.0);
+    return bool(limelight->GetDoubleTopic("tv").GetEntry(0.0).Get());
+}
+
+double VisSubsystem::getTagID() {
+    limelight->PutNumber("getpipe", 1.0);
+    return limelight->GetDoubleTopic("distToRobot").GetEntry(0.0).Get(); //Replace with ntable for ID
+}
+
+double VisSubsystem::distanceToTag() {
+    limelight->PutNumber("getpipe", 1.0);
+    return limelight->GetDoubleTopic("distToRobot").GetEntry(0.0).Get();
+}
+

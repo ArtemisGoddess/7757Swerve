@@ -6,7 +6,7 @@
 
 class AlignDrivebase : public frc2::CommandHelper<frc2::Command, AlignDrivebase> {
 public:
-    AlignDrivebase(VisSubsystem* vis, subsystems::CommandSwerveDrivetrain* drivetrain, bool withAprilTag);
+    AlignDrivebase(VisSubsystem* vis, subsystems::CommandSwerveDrivetrain* drivetrain);
 
     void Initialize() override;
     void Execute() override;
@@ -16,5 +16,4 @@ public:
 private:
     VisSubsystem* m_vis;
     subsystems::CommandSwerveDrivetrain* m_drivetrain;
-    bool m_withAprilTag;
 };

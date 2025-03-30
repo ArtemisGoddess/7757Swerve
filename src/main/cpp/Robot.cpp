@@ -8,14 +8,13 @@
 #include <frc2/command/CommandScheduler.h>
 
 Robot::Robot() { 
+  ctre::phoenix6::SignalLogger::Stop();
   configMotorsDefault(TalonList);
 
   ClimberFollower1.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
   ClimberFollower2.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
 
   m_autonomousCommand = m_container.GetAutonomousCommand();
-
-  ctre::phoenix6::SignalLogger::Stop();
 }
 
 void Robot::RobotPeriodic() {
@@ -24,7 +23,7 @@ void Robot::RobotPeriodic() {
   slam->PutNumber("VelocityY", m_container.drivetrain.GetState().Speeds.vy());
   slam->PutNumber("PositionX", (double)m_container.drivetrain.GetState().Pose.X());
   slam->PutNumber("PositionY", (double)m_container.drivetrain.GetState().Pose.Y());
-  slam->PutNumber("PoseRot", (double)Pigey.GetYaw().GetValue());
+  slam->PutNumber("PoseRot", Pigey.GetYaw().GetValueAsDouble());
 
   //m_inst.GetTable("Debuging")->PutNumber("test", (double)WristMotor.GetPosition().GetValue());
 }
