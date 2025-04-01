@@ -1,12 +1,10 @@
 #pragma once
 
-#include "Telemetry.h" //You need this for the motors!
 #include <frc2/command/SubsystemBase.h> //Subsystem things
-#include <ctre/phoenix6/configs/Configs.hpp>
+
+#include "Telemetry.h" //You need this for the motors!
 #include "subsystems/CommandSwerveDrivetrain.h"
 #include "Config.h"
-
-#include <generated/TunerConstants.h>
 
 class DriveSubsystem : public frc2::SubsystemBase {
     public:
@@ -19,13 +17,12 @@ class DriveSubsystem : public frc2::SubsystemBase {
         //X is forward, Y is Right
         void positionDrivebase(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t x, units::length::meter_t y);
 
-        units::length::meter_t xPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t x);
-        units::length::meter_t yPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t y);
+        units::meters_per_second_t xPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t x);
+        units::meters_per_second_t yPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t y);
 
         double rotMath(subsystems::CommandSwerveDrivetrain* drivetrain, double angle);
 
         bool isAtRot(subsystems::CommandSwerveDrivetrain* drivetrain);
-
         bool isAtPos(subsystems::CommandSwerveDrivetrain* drivetrain);
 
     private:
