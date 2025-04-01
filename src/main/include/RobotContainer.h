@@ -4,17 +4,17 @@
 
 #pragma once
 
-#include <frc2/command/CommandPtr.h>
-#include <frc2/command/button/CommandXboxController.h>
+#include <ctre/phoenix6/swerve/SwerveRequest.hpp>
 #include "subsystems/CommandSwerveDrivetrain.h"
 #include "Telemetry.h"
-#include <ctre/phoenix6/swerve/SwerveRequest.hpp>
+#include "Config.h"
 
 #include "subsystems/IntakeSubsystem.h"
 #include "subsystems/ClimberSubsystem.h"
 #include "subsystems/WristSubsystem.h"
 #include "subsystems/LiftSubsystem.h"
 #include "subsystems/localization/VisionTargettingSubsystem.h"
+#include "subsystems/DriveSubsystem.h"
 
 //swerve::requests::ForwardPerspectiveValue FieldCentric = swerve::requests::ForwardPerspectiveValue::BlueAlliance;
 //swerve::requests::ForwardPerspectiveValue OperaterCentric = swerve::requests::ForwardPerspectiveValue::OperatorPerspective;
@@ -50,6 +50,7 @@ private:
     IntakeSubsystem m_intakeSubsystem;
     ClimberSubsystem m_climber;
     WristSubsystem m_wristSubsystem;
-    LiftSubsystem m_lift;
+    LiftSubsystem m_liftSubsystem;
     VisSubsystem m_visionSubsystem;
+    DriveSubsystem m_driveSubsystem;
 };

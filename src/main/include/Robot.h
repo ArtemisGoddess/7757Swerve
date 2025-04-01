@@ -4,15 +4,8 @@
 
 #pragma once
 
-#include <optional>
-
+#include <optional> //Not currently used, but feel free to add an auto selector! - Celeste
 #include <frc/TimedRobot.h>
-#include <frc2/command/CommandPtr.h>
-#include <networktables/Topic.h>
-#include <ctre/phoenix6/Pigeon2.hpp>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <frc/Watchdog.h>
-#include <pathplanner/lib/commands/PathPlannerAuto.h>
 
 #include "RobotContainer.h"
 
@@ -35,8 +28,6 @@ class Robot : public frc::TimedRobot {
 
  private:
   std::optional<frc2::CommandPtr> m_autonomousCommand;
-
-  //frc2::CommandScheduler& scheduler = frc2::CommandScheduler::GetInstance();
 
   RobotContainer m_container;
 };
