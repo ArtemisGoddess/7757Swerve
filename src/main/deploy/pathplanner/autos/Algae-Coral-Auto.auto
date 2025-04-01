@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "First-Path"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Algae-Grab"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Algae-Score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Algae-Grab-Eletricboogaloo"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Algae-End"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
