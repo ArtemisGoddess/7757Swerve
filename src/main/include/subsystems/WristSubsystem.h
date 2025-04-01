@@ -1,13 +1,10 @@
 #pragma once
 
-#include "Telemetry.h" //You need this for the motors!
-#include <frc2/command/CommandPtr.h>
 #include <frc2/command/SubsystemBase.h> //Subsystem things
-#include <frc/controller/SimpleMotorFeedforward.h>
-#include <frc/DigitalInput.h>
-#include "Config.h"
-
 #include <generated/TunerConstants.h>
+
+#include "Telemetry.h" //You need this for the motors!
+#include "Config.h"
 
 
 class WristSubsystem : public frc2::SubsystemBase {
@@ -20,17 +17,21 @@ class WristSubsystem : public frc2::SubsystemBase {
 
         void manualRaise(units::turn_t speed);
 
-        void setPID(units::turn_t position); //For manual control. Do not use this, use the other functions.
-
-        void collectAlgaePID();
         void restPID(); //Rest position.
+        void maxPID();
+
+        void collectCoral();
 
         void t1Coral();
         void t2Coral();
         void t3Coral();
         void t4Coral();
 
-        void ReefAlgae();
+        void collectAlgaePID();
+
+        void t1ReefAlgae();
+        void t2ReefAlgae();
+        
         void scoreNetAlgae();
         void scoreProcessAlgae();
 

@@ -18,5 +18,5 @@ void WristRestPID::End(bool interrupted) {
 }
 
 bool WristRestPID::IsFinished() {
-    return m_wrist->isAtRest(); //Could also return false. Needs testing.
+    return m_wrist->isAtRest();
 }

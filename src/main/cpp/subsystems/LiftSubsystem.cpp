@@ -1,12 +1,4 @@
-#include <wpi/sendable/SendableBuilder.h>
 #include "subsystems/LiftSubsystem.h"
-#include "generated/TunerConstants.h"
-#include "RobotContainer.h"
-#include <frc/trajectory/TrapezoidProfile.h>
-#include <frc/controller/PIDController.h>
-#include <iostream>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include <Robot.h>
 
 LiftSubsystem::LiftSubsystem() {
     m_setpoint = LiftConstants::restPID;
@@ -39,35 +31,16 @@ void LiftSubsystem::stop() {
     m_lift.Set(LiftConstants::stopSpeed);
 }
 
-void LiftSubsystem::manualRaise(units::turn_t speed) {
-    controls::PositionVoltage m_request = controls::PositionVoltage{0_tr};
-    units::turn_t position = m_lift.GetPosition().GetValue();
-
-    if (speed > 0_tr) {
-        m_request.WithPosition(std::min(position + speed, LiftConstants::maxPID));
-    } else {
-        m_request.WithPosition(std::max(position + speed, LiftConstants::restPID));
-    }
-
-    m_lift.SetControl(m_request);
-}
-
-void LiftSubsystem::setPID(units::turn_t position) {
-    controls::PositionVoltage m_request = controls::PositionVoltage{position};
-    m_lift.SetControl(m_request);
-    m_setpoint = position;
-}
-
-void LiftSubsystem::collectAlgaePID() {
-    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::collectAlgaePID};
-    m_lift.SetControl(m_request);
-    m_setpoint = LiftConstants::collectAlgaePID;
-}
-
 void LiftSubsystem::restPID() {
     controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::restPID};
     m_lift.SetControl(m_request);
     m_setpoint = LiftConstants::restPID;
+}
+
+void LiftSubsystem::maxPID() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::maxPID};
+    m_lift.SetControl(m_request);
+    m_setpoint = LiftConstants::maxPID;
 }
 
 void LiftSubsystem::t1Coral() {
@@ -94,14 +67,44 @@ void LiftSubsystem::t4Coral() {
     m_setpoint = LiftConstants::t4PID;
 }
 
+void LiftSubsystem::collectAlgaePID() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::collectAlgaePID};
+    m_lift.SetControl(m_request);
+    m_setpoint = LiftConstants::collectAlgaePID;
+}
+
+void LiftSubsystem::t1ReefAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::t1ReefAlgaePID};
+    m_lift.SetControl(m_request);
+    m_setpoint = LiftConstants::t1ReefAlgaePID;
+}
+
+void LiftSubsystem::t2ReefAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::t2ReefAlgaePID};
+    m_lift.SetControl(m_request);
+    m_setpoint = LiftConstants::t2ReefAlgaePID;
+}
+
+void LiftSubsystem::scoreNetAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::netScorePID};
+    m_lift.SetControl(m_request);
+    m_setpoint = LiftConstants::netScorePID;
+}
+
+void LiftSubsystem::scoreProcessAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::processScorePID};
+    m_lift.SetControl(m_request);
+    m_setpoint = LiftConstants::processScorePID;
+}
+
 units::turn_t LiftSubsystem::getPIDPosition() {
     return m_lift.GetPosition().GetValue();
 }
 
 bool LiftSubsystem::isAtSetpoint() {
-    return (std::abs(double(m_setpoint) - m_lift.GetPosition().GetValueAsDouble()) <= LiftConstants::PIDTolerance);
+    return (units::math::abs(m_setpoint - m_lift.GetPosition().GetValue()) <= LiftConstants::PIDTolerance);
 }
 
 bool LiftSubsystem::isAtRest() {
-    return (std::abs(double(LiftConstants::restPID) - m_lift.GetPosition().GetValueAsDouble()) <= LiftConstants::PIDTolerance);
+    return (units::math::abs(LiftConstants::restPID - m_lift.GetPosition().GetValue()) <= LiftConstants::PIDTolerance);
 }
