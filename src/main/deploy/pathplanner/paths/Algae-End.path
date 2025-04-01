@@ -1,0 +1,88 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.25061475409836,
+        "y": 5.325665983606557
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.574170623297846,
+        "y": 6.247245539607736
+      },
+      "isLocked": false,
+      "linkedName": "Algae-Electricboogaloo"
+    },
+    {
+      "anchor": {
+        "x": 7.780020491803279,
+        "y": 7.411526639344262
+      },
+      "prevControl": {
+        "x": 6.91170439364024,
+        "y": 7.392328322357834
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Lift-Up",
+      "waypointRelativePos": 0.4995229007633514,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Lift-Up"
+        }
+      }
+    },
+    {
+      "name": "Algae-Grab",
+      "waypointRelativePos": 0.4995229007633579,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Algae-Grab"
+        }
+      }
+    },
+    {
+      "name": "CoralOuttake",
+      "waypointRelativePos": 0.8964694656488513,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "CoralOuttake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Algae-Coral-Auto",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -115.97439396243126
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,77 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.144672131147541,
+        "y": 4.318698770491803
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.55823968737176,
+        "y": 4.325866462855578
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.125717213114753,
+        "y": 4.318698770491803
+      },
+      "prevControl": {
+        "x": 5.87580141146485,
+        "y": 4.31221092911841
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Coral-end"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "WristDown",
+      "waypointRelativePos": 0.49761450381680594,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "WristDown"
+        }
+      }
+    },
+    {
+      "name": "CoralOuttake",
+      "waypointRelativePos": 0.9002862595419646,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "CoralOuttake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "Algae-Coral-Auto",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
