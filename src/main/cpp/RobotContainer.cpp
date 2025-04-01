@@ -73,7 +73,7 @@ void RobotContainer::ConfigureBindings() {
         .OnTrue(m_climber.ClimbDown());*/
     
     (frc2::JoystickButton(&joystick.GetHID(), frc::XboxController::Button::kB)) //coral alignment (Should work)
-        .WhileTrue(new AlignAndDrive(&m_visionSubsystem, &drivetrain, false)); //new WristRestPID(&m_wristSubsystem)
+        .WhileTrue(new AlignAndDrive(&m_visionSubsystem, &drivetrain)); //new WristRestPID(&m_wristSubsystem)
     
     /*joystick.POVUp()
         .WhileTrue(m_lift.LiftUp(1_tr));

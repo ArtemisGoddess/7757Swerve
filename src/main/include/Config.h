@@ -64,8 +64,8 @@ class WristConstants {
         static constexpr int kD = 0;
 
         //PID for intake/storing
-        static constexpr units::turn_t restPID = 0_tr;
-        static constexpr units::turn_t maxPID = 2.76_tr;
+        static constexpr units::turn_t restPID = -1_tr;
+        static constexpr units::turn_t maxPID = 5_tr; //This needs to be tuned to our needs
 
         //PID for coral scoring
         static constexpr units::turn_t t1PID = 2_tr;
@@ -78,7 +78,7 @@ class WristConstants {
 
         //PID for algae scoring
         static constexpr units::turn_t ReefAlgaePID = 1_tr;
-        static constexpr units::turn_t collectAlgaePID = 2.76_tr;
+        static constexpr units::turn_t collectAlgaePID = 3.14_tr; //This may be incorrect. More testing is needed.
         static constexpr units::turn_t netScorePID = 0_tr;
         static constexpr units::turn_t processScorePID = 0_tr;
 
@@ -104,11 +104,10 @@ class LiftConstants {
         static constexpr int kI = 0;
         static constexpr int kD = 0;
 
-        //PID for intake/storing/maximum position
+        //PID for rest/maximum position
         static constexpr units::turn_t restPID = 0_tr;
         static constexpr units::turn_t maxPID = 4_tr;
         
-
         //PID for coral scoring
         static constexpr units::turn_t t1PID = 0_tr;
         static constexpr units::turn_t t2PID = 0_tr;
@@ -145,4 +144,16 @@ class IntakeConstants {
         static constexpr double kP = 2.4;
         static constexpr int kI = 0;
         static constexpr int kD = 0;
+};
+
+class LimelightConstants {
+    public:
+        //ID lists for barge and alliance colors
+        static constexpr double blueBarge[2] = {5, 4};
+        static constexpr double redBarge[2] = {14, 15};
+
+        //Settings for rotations and such
+        static constexpr double DegTolerance = 0.5; //Degree tolerance for rotation positioning NOTE: THIS WILL DRIFT, BE CAREFUL REGARDING THE VALUE DIRTY SEVERITY
+        static constexpr double xTolerance = 0.1; //This is in meters
+        static constexpr double yTolerance = 0.1;
 };

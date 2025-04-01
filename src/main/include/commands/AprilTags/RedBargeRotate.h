@@ -3,10 +3,11 @@
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/Command.h>
 #include "subsystems/localization/VisionTargettingSubsystem.h"
+#include "subsystems/DriveSubsystem.h"
 
-class AlignDrivebase : public frc2::CommandHelper<frc2::Command, AlignDrivebase> {
+class RedBargeRotate : public frc2::CommandHelper<frc2::Command, RedBargeRotate> {
 public:
-    AlignDrivebase(VisSubsystem* vis, subsystems::CommandSwerveDrivetrain* drivetrain);
+    RedBargeRotate(VisSubsystem* vis, DriveSubsystem* m_drive, subsystems::CommandSwerveDrivetrain* drivetrain, int tagID);
 
     void Initialize() override;
     void Execute() override;
@@ -15,5 +16,7 @@ public:
 
 private:
     VisSubsystem* m_vis;
+    DriveSubsystem* m_drive;
     subsystems::CommandSwerveDrivetrain* m_drivetrain;
+    int m_tagID;
 };
