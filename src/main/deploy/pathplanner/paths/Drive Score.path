@@ -33,13 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "WristDown",
+      "name": "",
       "waypointRelativePos": 0.6025763358778833,
       "endWaypointRelativePos": 1.0,
       "command": {
         "type": "named",
         "data": {
-          "name": "WristDown"
+          "name": null
         }
       }
     },

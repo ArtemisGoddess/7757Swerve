@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "WristUp",
+      "name": "",
       "waypointRelativePos": 0.3983778625954132,
       "endWaypointRelativePos": null,
       "command": null

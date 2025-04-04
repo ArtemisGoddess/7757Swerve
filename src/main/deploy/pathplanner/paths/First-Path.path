@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 7.144672131147541,
-        "y": 4.318698770491803
+        "y": 4.019006147540983
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.55823968737176,
-        "y": 4.325866462855578
+        "y": 4.026173839904758
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.125717213114753,
-        "y": 4.318698770491803
+        "x": 6.041803278688524,
+        "y": 4.019006147540983
       },
       "prevControl": {
-        "x": 5.87580141146485,
-        "y": 4.31221092911841
+        "x": 5.79188747703862,
+        "y": 4.01251830616759
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,18 +33,18 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "WristDown",
+      "name": "ParallelT1Algae",
       "waypointRelativePos": 0.49761450381680594,
-      "endWaypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "WristDown"
+          "name": "CoralScorePos"
         }
       }
     },
     {
-      "name": "CoralIntake",
+      "name": "AlgaeIntake",
       "waypointRelativePos": 0.9002862595419646,
       "endWaypointRelativePos": 1.0,
       "command": {

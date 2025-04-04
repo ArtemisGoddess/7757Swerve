@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.031585836705105,
-        "y": 5.971988819063697
+        "x": 6.665152855367402,
+        "y": 6.064300611319355
       },
       "isLocked": false,
       "linkedName": "Algae-Shot"
@@ -20,8 +20,8 @@
         "y": 5.325665983606557
       },
       "prevControl": {
-        "x": 5.149732984455455,
-        "y": 5.569219351085276
+        "x": 5.185214350956819,
+        "y": 5.566959968755222
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,29 +33,29 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Lift-Down",
+      "name": "ParallelRest",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "Lift-Down"
+          "name": "ParallelRest"
         }
       }
     },
     {
-      "name": "Algae-Grab",
-      "waypointRelativePos": 0.6999045801526717,
-      "endWaypointRelativePos": 1.0,
+      "name": "ParallelT2Algae",
+      "waypointRelativePos": 0.5033396946564899,
+      "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "Algae-Grab"
+          "name": "ParallelT2Algae"
         }
       }
     },
     {
-      "name": "CoralIntake",
+      "name": "AlgaeIntake",
       "waypointRelativePos": 0.9002862595419848,
       "endWaypointRelativePos": 1.0,
       "command": {
@@ -76,7 +76,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -115.97439396243126
+    "rotation": -116.56505117707789
   },
   "reversed": false,
   "folder": "Algae-Coral-Auto",

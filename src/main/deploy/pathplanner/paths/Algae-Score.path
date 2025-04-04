@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.125717213114753,
+        "x": 6.041803278688524,
         "y": 4.019006147540983
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.276365945999424,
-        "y": 3.760869991739617
+        "x": 6.689139344265263,
+        "y": 3.8511782786950155
       },
       "isLocked": false,
-      "linkedName": "Algae-Grab"
+      "linkedName": "Coral-end"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 6.11685450819672
       },
       "prevControl": {
-        "x": 5.708524679788582,
-        "y": 6.201931730081379
+        "x": 5.444536899229516,
+        "y": 5.730108723235825
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,24 +33,18 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Algae-Grab",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": 1.0,
-      "command": null
-    },
-    {
-      "name": "Lift-Up",
-      "waypointRelativePos": 0.4976145038167967,
+      "name": "ParallelNetAlgae",
+      "waypointRelativePos": 0.6044847328244285,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "Lift-Up"
+          "name": "ParallelNetAlgae"
         }
       }
     },
     {
-      "name": "CoralOuttake",
+      "name": "AlgaeOuttake",
       "waypointRelativePos": 0.902194656488551,
       "endWaypointRelativePos": 1.0,
       "command": {

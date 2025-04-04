@@ -11,9 +11,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Algae-Grab"
+            "waitTime": 3.0
           }
         },
         {
@@ -23,15 +23,51 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ParallelRest"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Algae-Grab-Eletricboogaloo"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ParallelRest"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Algae-End"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ParallelRest"
           }
         }
       ]
