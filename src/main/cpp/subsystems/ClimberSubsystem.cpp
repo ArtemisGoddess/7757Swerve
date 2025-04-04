@@ -11,7 +11,7 @@ ClimberSubsystem::ClimberSubsystem() {}
 frc2::CommandPtr ClimberSubsystem::ClimbUp() {
     return this->RunOnce(
         [this] {
-            ClimberMotor.SetControl(m_request.WithPosition(5_tr));
+            //ClimberMotor.SetControl(m_request.WithPosition(5_tr));
         }
     );
 }
@@ -19,7 +19,7 @@ frc2::CommandPtr ClimberSubsystem::ClimbUp() {
 frc2::CommandPtr ClimberSubsystem::ClimbDown() {
     return this->RunOnce(
         [this] {
-            ClimberMotor.SetControl(m_request.WithPosition(-2_tr));
+            //ClimberMotor.SetControl(m_request.WithPosition(-2_tr));
         }
     );
 }

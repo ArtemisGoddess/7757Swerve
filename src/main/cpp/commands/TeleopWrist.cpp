@@ -13,7 +13,7 @@ void TeleopWrist::Execute() {
 }
 
 void TeleopWrist::End(bool interrupted) { 
-    m_wrist->stop();
+    //m_wrist->stop();
 }
 
 bool TeleopWrist::IsFinished() {

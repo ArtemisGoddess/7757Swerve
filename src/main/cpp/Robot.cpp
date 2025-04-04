@@ -7,24 +7,16 @@
 #include <frc2/command/CommandScheduler.h>
 
 Robot::Robot() { 
-  configMotorsDefault(TalonList);
-
-  ClimberFollower1.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
-  ClimberFollower2.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
-
   m_autonomousCommand = m_container.GetAutonomousCommand();
   ctre::phoenix6::SignalLogger::Stop();
 
+  auto const alliance = frc::DriverStation::GetAlliance().value_or(frc::DriverStation::Alliance::kBlue);
+  slam->PutNumber("TeamColorRed", alliance == frc::DriverStation::Alliance::kRed);
+  slam->PutNumber("ColorPosition", frc::DriverStation::GetLocation().value());
 }
 
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
-  slam->PutNumber("VelocityX", m_container.drivetrain.GetState().Speeds.vx());
-  slam->PutNumber("VelocityY", m_container.drivetrain.GetState().Speeds.vy());
-  slam->PutNumber("PositionX", (double)m_container.drivetrain.GetState().Pose.X());
-  slam->PutNumber("PositionY", (double)m_container.drivetrain.GetState().Pose.Y());
-  slam->PutNumber("PoseRot", Pigey.GetYaw().GetValueAsDouble());
-
   //m_inst.GetTable("Debuging")->PutNumber("test", (double)WristMotor.GetPosition().GetValue());
 }
 
@@ -48,10 +40,15 @@ void Robot::TeleopInit() {
   if (m_autonomousCommand) {
     m_autonomousCommand->Cancel();
   }
+  ctre::phoenix6::SignalLogger::Stop();
 }
 
 void Robot::TeleopPeriodic() {
-  
+  slam->PutNumber("VelocityX", m_container.drivetrain.GetState().Speeds.vx());
+  slam->PutNumber("VelocityY", m_container.drivetrain.GetState().Speeds.vy());
+  slam->PutNumber("PositionX", (double)m_container.drivetrain.GetState().Pose.X());
+  slam->PutNumber("PositionY", (double)m_container.drivetrain.GetState().Pose.Y());
+  slam->PutNumber("PoseRot", Pigey.GetYaw().GetValueAsDouble());
 }
 
 void Robot::TeleopExit() {

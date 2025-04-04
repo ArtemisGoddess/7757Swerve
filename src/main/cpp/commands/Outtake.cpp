@@ -8,7 +8,7 @@ Outtake::Outtake(IntakeSubsystem* intake, double speed)
 void Outtake::Initialize() { }
 
 void Outtake::Execute() {
-    m_intake->intake(m_speed);
+    m_intake->outtake(m_speed);
 }
 
 void Outtake::End(bool interrupted) {
@@ -20,3 +20,5 @@ void Outtake::End(bool interrupted) {
 bool Outtake::IsFinished() {
     return false;
 }
+
+//0.816895

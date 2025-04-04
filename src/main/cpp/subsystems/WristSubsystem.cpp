@@ -11,10 +11,12 @@ WristSubsystem::WristSubsystem() {
         config.MotorOutput.WithNeutralMode(WristConstants::wristNeutral).WithInverted(true);
     
     m_wrist.GetConfigurator().Apply(config);
-    w_follower.GetConfigurator().Apply(config);
+    w_follower1.GetConfigurator().Apply(config);
+    w_follower2.GetConfigurator().Apply(config);
 
     m_wrist.SetControl(m_initial);
-    w_follower.SetControl(m_follow);
+    w_follower1.SetControl(m_follow);
+    w_follower2.SetControl(m_follow);
 }
 
 void WristSubsystem::raise() {

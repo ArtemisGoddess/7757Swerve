@@ -49,10 +49,10 @@ void RobotContainer::ConfigureBindings() {
     // 
 
     operatorJoystick.LeftTrigger(0.5) //Wrist Up
-        .WhileTrue(new TeleopWrist(&m_wristSubsystem, -0.3_tr));
+        .WhileTrue(new TeleopWrist(&m_wristSubsystem, -0.5_tr));
 
     (frc2::JoystickButton(&operatorJoystick.GetHID(), frc::XboxController::Button::kLeftBumper)) //Wrist Down
-        .WhileTrue(new TeleopWrist(&m_wristSubsystem, 0.3_tr));
+        .WhileTrue(new TeleopWrist(&m_wristSubsystem, 0.5_tr));
 
     operatorJoystick.RightTrigger(0.5) //Lift Up
         .WhileTrue(new LiftMaxPID(&m_liftSubsystem));
@@ -93,8 +93,8 @@ void RobotContainer::ConfigureBindings() {
 
     drivetrain.RegisterTelemetry([this](auto const &state) { logger.Telemeterize(state); });
 }
-
+    
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
-    return pathplanner::PathPlannerAuto("Single-Score-Auto").ToPtr();
+    return pathplanner::PathPlannerAuto("Drive-Forward").ToPtr();
 }
