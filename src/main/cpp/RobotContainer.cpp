@@ -26,9 +26,14 @@
 
 RobotContainer::RobotContainer()//Passes the drivetrain to the targetting subsystem so it may move
 {
-    pathplanner::NamedCommands::registerCommand("CoralOuttake", std::make_shared<Intake>(&m_intakeSubsystem, 0.3)); //This is technically the outtake for the coral
-    pathplanner::NamedCommands::registerCommand("CoralIntake", std::make_shared<Outtake>(&m_intakeSubsystem, 0.3)); //This is technically the intake for the coral
-    pathplanner::NamedCommands::registerCommand("WristDown", std::make_shared<WristAuto>(&m_wristSubsystem));
+    pathplanner::NamedCommands::registerCommand("CoralOuttake", std::make_shared<Intake>(&m_intakeSubsystem, 0.4)); //This is technically the outtake for the coral
+    pathplanner::NamedCommands::registerCommand("AlgaeOuttake", std::make_shared<Outtake>(&m_intakeSubsystem, 0.8)); //This is technically the outtake for the coral
+    pathplanner::NamedCommands::registerCommand("AlgaeIntake", std::make_shared<Intake>(&m_intakeSubsystem, 0.8));
+    pathplanner::NamedCommands::registerCommand("CoralScorePos", std::make_shared<WristT1Algae>(&m_wristSubsystem));
+    pathplanner::NamedCommands::registerCommand("ParallelT1Algae", std::make_shared<ParallelT1Algae>(&m_liftSubsystem, &m_wristSubsystem));
+    pathplanner::NamedCommands::registerCommand("ParallelT2Algae", std::make_shared<ParallelT2Algae>(&m_liftSubsystem, &m_wristSubsystem));
+    pathplanner::NamedCommands::registerCommand("ParallelRest", std::make_shared<ParallelRest>(&m_liftSubsystem, &m_wristSubsystem));
+
     ConfigureBindings();
 }
 
