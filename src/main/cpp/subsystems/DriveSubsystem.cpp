@@ -4,11 +4,11 @@
 
 DriveSubsystem::DriveSubsystem() {
     drive
-        .WithDeadband(DrivebaseConstants::MaxSpeed * 0.1).WithRotationalDeadband(DrivebaseConstants::MaxAngularRate * 0.1) // Add a 10% deadband (Taken from RobotContainer)
+        .WithDeadband(DrivebaseConstants::MaxSpeed * 0.05).WithRotationalDeadband(DrivebaseConstants::MaxAngularRate * 0.1) // Add a 5% deadband (Taken from RobotContainer)
         .WithDriveRequestType(swerve::DriveRequestType::OpenLoopVoltage);
     driveField
         .WithForwardPerspective(swerve::requests::ForwardPerspectiveValue::OperatorPerspective)
-        .WithDeadband(DrivebaseConstants::MaxSpeed * 0.1).WithRotationalDeadband(DrivebaseConstants::MaxAngularRate * 0.1)
+        .WithDeadband(DrivebaseConstants::MaxSpeed * 0.05).WithRotationalDeadband(DrivebaseConstants::MaxAngularRate * 0.1)
         .WithDriveRequestType(swerve::DriveRequestType::OpenLoopVoltage);
 }
 

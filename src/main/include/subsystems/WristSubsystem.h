@@ -41,9 +41,11 @@ class WristSubsystem : public frc2::SubsystemBase {
 
     private:
         //Main wrist
-        ctre::phoenix6::hardware::TalonFX m_wrist{15, CAN};
-        //Wrist follower
-        ctre::phoenix6::hardware::TalonFX w_follower{16, CAN};
+        ctre::phoenix6::hardware::TalonFX m_wrist{20, CAN};
+        //Wrist follower left (maybe)
+        ctre::phoenix6::hardware::TalonFX w_follower1{21, CAN};
+        //Wrist follower right (maybe)
+        ctre::phoenix6::hardware::TalonFX w_follower2{22, CAN};
         //Current setpoint for PID
         units::turn_t m_setpoint = 0_tr;
 };
