@@ -22,9 +22,6 @@ class VisSubsystem : public frc2::SubsystemBase {
         bool seesAprilTag();
         double getTagID();
         double distanceToTag();
-
-        double tagHandle();
-
     private:
         swerve::requests::RobotCentric drive = swerve::requests::RobotCentric{};
         

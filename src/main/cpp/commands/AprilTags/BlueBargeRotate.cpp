@@ -8,11 +8,11 @@ BlueBargeRotate::BlueBargeRotate(VisSubsystem* vis, DriveSubsystem* drive, subsy
 void BlueBargeRotate::Initialize() { }
 
 void BlueBargeRotate::Execute() {
-    if (m_tagID == 14) {
+    if (m_tagID == AprilTagConstants::blueBarge[1]) {
         m_drive->moveDrivebase(m_drivetrain, 35, units::length::meter_t(m_vis->distanceToTag() - 5), 0_m);
     }
 
-    if (m_tagID == 15) {
+    if (m_tagID == AprilTagConstants::blueBarge[2]) {
         m_drive->moveDrivebase(m_drivetrain, 325, units::length::meter_t(m_vis->distanceToTag() - 5), 0_m);
     }
     
@@ -21,5 +21,6 @@ void BlueBargeRotate::Execute() {
 void BlueBargeRotate::End(bool interrupted) { }
 
 bool BlueBargeRotate::IsFinished() {
-    return m_drive->isAtPos(m_drivetrain); 
+    //return m_drive->isAtPos(m_drivetrain); 
+    return false;
 }

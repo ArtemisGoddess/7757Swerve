@@ -3,18 +3,18 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-#include "Config.h"
 
 #include <frc2/command/CommandScheduler.h>
 
 Robot::Robot() { 
-  ctre::phoenix6::SignalLogger::Stop();
   configMotorsDefault(TalonList);
 
   ClimberFollower1.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
   ClimberFollower2.SetControl(controls::Follower(ClimberMotor.GetDeviceID(), false));
 
   m_autonomousCommand = m_container.GetAutonomousCommand();
+  ctre::phoenix6::SignalLogger::Stop();
+
 }
 
 void Robot::RobotPeriodic() {

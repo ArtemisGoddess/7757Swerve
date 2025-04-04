@@ -9,7 +9,7 @@ void TeleopWrist::Initialize() { }
 
 void TeleopWrist::Execute() {
     m_wrist->manualRaise(m_speed);
-    m_inst.GetTable("Debuging")->PutNumber("test", double(m_wrist->getPIDPosition()));
+    m_inst.GetTable("Debuging")->PutNumber("WristPID", double(m_wrist->getPIDPosition()));
 }
 
 void TeleopWrist::End(bool interrupted) { 

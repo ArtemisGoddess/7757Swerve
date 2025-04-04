@@ -1,13 +1,14 @@
 #pragma once
 
 #include <frc/DigitalInput.h>
-#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
 #include <ctre/phoenix6/CANBus.hpp>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/configs/Configs.hpp>
 #include <Vector>
 #include <ctre/phoenix6/Pigeon2.hpp>
 #include <frc2/command/button/CommandXboxController.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
 
 inline ctre::phoenix6::CANBus CAN{""}; //The main CAN network. Use this with everything.
 inline ctre::phoenix6::CANBus SwerveCAN{"SwerveMotors"}; //The swerve motor CANivore system. ONLY FOR THE SWERVE MODULES AND PIGEON.
@@ -21,6 +22,7 @@ inline frc::DigitalInput Distance{9};
 inline ctre::phoenix6::hardware::Pigeon2 Pigey{0, SwerveCAN};
 
 inline frc2::CommandXboxController joystick{0};
+inline frc2::CommandXboxController operatorJoystick{1};
 
 inline ctre::phoenix6::hardware::TalonFX ClimberMotor{20, CAN};
 inline ctre::phoenix6::hardware::TalonFX ClimberFollower1{21, CAN}; //Left
@@ -31,9 +33,9 @@ inline std::vector<ctre::phoenix6::hardware::TalonFX*> TalonList{&ClimberMotor, 
 //Configures a vector of motors for initial usage
 inline void configMotorsDefault(std::vector<ctre::phoenix6::hardware::TalonFX*> Talons) {
     ctre::phoenix6::configs::TalonFXConfiguration config{};
-    config.Feedback.WithFeedbackSensorSource(ctre::phoenix6::signals::FeedbackSensorSourceValue::RotorSensor);
-    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.1); //KP for motor speed << This is technically right and wrong
-    config.MotorOutput.WithNeutralMode(ctre::phoenix6::signals::NeutralModeValue::Brake);
+    config.Feedback.WithFeedbackSensorSource(0);
+    config.Slot0.WithKP(2.4).WithKI(0).WithKD(0.0); //KP for motor speed << This is technically right and wrong
+    config.MotorOutput.WithNeutralMode(1);
 
     for (ctre::phoenix6::hardware::TalonFX* Talon : Talons) {
         Talon->GetConfigurator().Apply(config);
@@ -58,7 +60,7 @@ class WristConstants {
         static constexpr double maxSpeed = 0.8;
         static constexpr double minSpeed = -0.8;
         static constexpr int stopSpeed = 0;
-        static constexpr double PIDTolerance = 0.05;
+        static constexpr units::turn_t PIDTolerance = 0.05_tr;
         static constexpr double kP = 2.4;
         static constexpr int kI = 0;
         static constexpr int kD = 0;
@@ -76,13 +78,14 @@ class WristConstants {
         //Constants for coral
         static constexpr double coralSpeed = 0.3;
 
-        //PID for algae scoring
-        static constexpr units::turn_t ReefAlgaePID = 1_tr;
+        //PID for algae pickup
         static constexpr units::turn_t collectAlgaePID = 3.14_tr; //This may be incorrect. More testing is needed.
+        static constexpr units::turn_t t1ReefAlgaePID = 0_tr;
+        static constexpr units::turn_t t2ReefAlgaePID = 0_tr;
+
+        //PID for algae scoring
         static constexpr units::turn_t netScorePID = 0_tr;
         static constexpr units::turn_t processScorePID = 0_tr;
-
-        
 
         //Constants for algae
         static constexpr double algaeSpeed = 0.3;
@@ -91,22 +94,22 @@ class WristConstants {
 class LiftConstants {
     public:
         //Base settings
-        static constexpr int mainLiftID = 99;
-        static constexpr int followerLiftID1 = 98;
-        static constexpr int followerLiftID2 = 97;
+        static constexpr int mainLiftID = 2;
+        static constexpr int followerLiftID1 = 3; //left
+        static constexpr int followerLiftID2 = 4; //Right
         static constexpr int rotorSensor = 0;
         static constexpr int liftNeutral = 1;
         static constexpr double maxSpeed = 0.8;
         static constexpr double minSpeed = -0.8;
         static constexpr int stopSpeed = 0;
-        static constexpr double PIDTolerance = 0.05;
-        static constexpr double kP = 2.4;
+        static constexpr units::turn_t PIDTolerance = 0.1_tr;
+        static constexpr double kP = 5.4;
         static constexpr int kI = 0;
         static constexpr int kD = 0;
 
         //PID for rest/maximum position
-        static constexpr units::turn_t restPID = 0_tr;
-        static constexpr units::turn_t maxPID = 4_tr;
+        static constexpr units::turn_t restPID = 2.1_tr;
+        static constexpr units::turn_t maxPID = 205.5_tr;
         
         //PID for coral scoring
         static constexpr units::turn_t t1PID = 0_tr;
@@ -120,8 +123,12 @@ class LiftConstants {
         static constexpr int coralkI = 0;
         static constexpr int coralkD = 0;
 
+        //PID for algae pickup
+        static constexpr units::turn_t collectAlgaePID = 2.1_tr;
+        static constexpr units::turn_t t1ReefAlgaePID = 0_tr;
+        static constexpr units::turn_t t2ReefAlgaePID = 0_tr;
+
         //PID for algae scoring
-        static constexpr units::turn_t collectAlgaePID = 0_tr;
         static constexpr units::turn_t netScorePID = 0_tr;
         static constexpr units::turn_t processScorePID = 0_tr;
 
@@ -137,7 +144,8 @@ class IntakeConstants {
         //Base settings
         static constexpr int mainIntakeID = 12;
         static constexpr int followerIntakeID = 11;
-        static constexpr int liftNeutral = 1;
+        static constexpr int rotorSensor = 0;
+        static constexpr int intakeNeutral = 1;
         static constexpr double maxSpeed = 0.8;
         static constexpr double minSpeed = -0.8;
         static constexpr int stopSpeed = 0;
@@ -146,14 +154,14 @@ class IntakeConstants {
         static constexpr int kD = 0;
 };
 
-class LimelightConstants {
+class AprilTagConstants {
     public:
         //ID lists for barge and alliance colors
-        static constexpr double blueBarge[2] = {5, 4};
+        static constexpr double blueBarge[2] = {4, 5};
         static constexpr double redBarge[2] = {14, 15};
 
         //Settings for rotations and such
         static constexpr double DegTolerance = 0.5; //Degree tolerance for rotation positioning NOTE: THIS WILL DRIFT, BE CAREFUL REGARDING THE VALUE DIRTY SEVERITY
-        static constexpr double xTolerance = 0.1; //This is in meters
-        static constexpr double yTolerance = 0.1;
+        static constexpr units::meter_t xTolerance = 0.1_m; //This is in meters
+        static constexpr units::meter_t yTolerance = 0.1_m; //This is in meters
 };

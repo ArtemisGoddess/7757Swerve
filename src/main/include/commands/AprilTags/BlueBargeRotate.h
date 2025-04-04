@@ -1,25 +1,22 @@
-#include "commands/AprilTags/RedBargeRotate.h"
+#pragma once
 
-RedBargeRotate::RedBargeRotate(VisSubsystem* vis, DriveSubsystem* drive, subsystems::CommandSwerveDrivetrain* drivetrain, int tagID) 
-    : m_vis(vis), m_drive(drive), m_drivetrain(drivetrain), m_tagID(tagID) {
-    AddRequirements({vis, drive, drivetrain});
-}
+#include <frc2/command/CommandHelper.h>
+#include <frc2/command/Command.h>
+#include "subsystems/localization/VisionTargettingSubsystem.h"
+#include "subsystems/DriveSubsystem.h"
 
-void RedBargeRotate::Initialize() { }
+class BlueBargeRotate : public frc2::CommandHelper<frc2::Command, BlueBargeRotate> {
+public:
+    BlueBargeRotate(VisSubsystem* vis, DriveSubsystem* m_drive, subsystems::CommandSwerveDrivetrain* drivetrain, int tagID);
 
-void RedBargeRotate::Execute() {
-    if (m_tagID == 5) {
-        m_drive->moveDrivebase(m_drivetrain, 35, units::length::meter_t(m_vis->distanceToTag() - 5), 0_m);
-    }
+    void Initialize() override;
+    void Execute() override;
+    bool IsFinished() override;
+    void End(bool interrupted) override;
 
-    if (m_tagID == 4) {
-        m_drive->moveDrivebase(m_drivetrain, 325, units::length::meter_t(m_vis->distanceToTag() - 5), 0_m);
-    }
-    
-}
-
-void RedBargeRotate::End(bool interrupted) { }
-
-bool RedBargeRotate::IsFinished() {
-    return m_drive->isAtPos(m_drivetrain); 
-}
+private:
+    VisSubsystem* m_vis;
+    DriveSubsystem* m_drive;
+    subsystems::CommandSwerveDrivetrain* m_drivetrain;
+    int m_tagID;
+};

@@ -1,11 +1,4 @@
-#include <wpi/sendable/SendableBuilder.h>
 #include "subsystems/WristSubsystem.h"
-#include "generated/TunerConstants.h"
-#include "RobotContainer.h"
-#include <frc/trajectory/TrapezoidProfile.h>
-#include <frc/controller/PIDController.h>
-#include <iostream>
-#include <ctre/phoenix/motorcontrol/ControlMode.h>
 
 WristSubsystem::WristSubsystem() {
     m_setpoint = WristConstants::restPID;
@@ -49,22 +42,16 @@ void WristSubsystem::manualRaise(units::turn_t speed) {
     m_wrist.SetControl(m_request);
 }
 
-void WristSubsystem::setPID(units::turn_t position) {
-    controls::PositionVoltage m_request = controls::PositionVoltage{position};
-    m_wrist.SetControl(m_request);
-    m_setpoint = position;
-}
-
-void WristSubsystem::collectAlgaePID() {
-    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::collectAlgaePID};
-    m_wrist.SetControl(m_request);
-    m_setpoint = WristConstants::collectAlgaePID;
-}
-
 void WristSubsystem::restPID() {
     controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::restPID};
     m_wrist.SetControl(m_request);
     m_setpoint = WristConstants::restPID;
+}
+
+void WristSubsystem::maxPID() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::maxPID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = LiftConstants::maxPID;
 }
 
 void WristSubsystem::t1Coral() {
@@ -91,10 +78,34 @@ void WristSubsystem::t4Coral() {
     m_setpoint = WristConstants::t4PID;
 }
 
-void WristSubsystem::ReefAlgae(){
-    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::ReefAlgaePID};
+void WristSubsystem::collectAlgaePID() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::collectAlgaePID};
     m_wrist.SetControl(m_request);
-    m_setpoint = WristConstants::ReefAlgaePID;
+    m_setpoint = WristConstants::collectAlgaePID;
+}
+
+void WristSubsystem::t1ReefAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::t1ReefAlgaePID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::t1ReefAlgaePID;
+}
+
+void WristSubsystem::t2ReefAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::t2ReefAlgaePID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::t2ReefAlgaePID;
+}
+
+void WristSubsystem::scoreNetAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::netScorePID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::netScorePID;
+}
+
+void WristSubsystem::scoreProcessAlgae() {
+    controls::PositionVoltage m_request = controls::PositionVoltage{WristConstants::processScorePID};
+    m_wrist.SetControl(m_request);
+    m_setpoint = WristConstants::processScorePID;
 }
 
 units::turn_t WristSubsystem::getPIDPosition() {
@@ -102,9 +113,9 @@ units::turn_t WristSubsystem::getPIDPosition() {
 }
 
 bool WristSubsystem::isAtSetpoint() {
-    return (std::abs(double(m_setpoint) - m_wrist.GetPosition().GetValueAsDouble()) <= WristConstants::PIDTolerance);
+    return (units::math::abs(m_setpoint - m_wrist.GetPosition().GetValue()) <= WristConstants::PIDTolerance);
 }
 
 bool WristSubsystem::isAtRest() {
-    return (std::abs(double(WristConstants::restPID) - m_wrist.GetPosition().GetValueAsDouble()) <= WristConstants::PIDTolerance);
+    return (units::math::abs(WristConstants::restPID - m_wrist.GetPosition().GetValue()) <= WristConstants::PIDTolerance);
 }

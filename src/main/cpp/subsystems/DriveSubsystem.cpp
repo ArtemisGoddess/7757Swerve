@@ -1,7 +1,6 @@
 #include "subsystems/DriveSubsystem.h"
 #include "generated/TunerConstants.h"
 #include "RobotContainer.h"
-#include <ctre/phoenix/motorcontrol/ControlMode.h>
 
 DriveSubsystem::DriveSubsystem() {
     drive
@@ -14,9 +13,9 @@ DriveSubsystem::DriveSubsystem() {
 }
 
 void DriveSubsystem::moveDrivebase(subsystems::CommandSwerveDrivetrain* drivetrain, double angle, units::length::meter_t x, units::length::meter_t y) {
-    units::length::meter_t xGoTo = std::min(x - drivetrain->GetState().Pose.X(), 3_m);
-    units::length::meter_t yGoTo = std::min(y - drivetrain->GetState().Pose.X(), 3_m);
-    units::angular_velocity::turns_per_second_t rotGoTo = std::min(units::angular_velocity::turns_per_second_t(angle - drivetrain->GetPigeon2().GetAngle()), 1_tps);
+    units::meters_per_second_t xGoTo = units::math::min(x - drivetrain->GetState().Pose.X(), 3.0_m)/1_s;
+    units::meters_per_second_t yGoTo = units::math::min(y - drivetrain->GetState().Pose.Y(), 3.0_m)/1_s;
+    units::angular_velocity::turns_per_second_t rotGoTo = units::math::min(units::angular_velocity::turns_per_second_t(angle - drivetrain->GetPigeon2().GetYaw().GetValueAsDouble()), 1_tps);
 
     drivetrain->SetControl(drive.WithRotationalRate(rotGoTo).WithVelocityX(xGoTo).WithVelocityY(yGoTo));
 
@@ -26,8 +25,8 @@ void DriveSubsystem::moveDrivebase(subsystems::CommandSwerveDrivetrain* drivetra
 }
 
 void DriveSubsystem::positionDrivebase(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t x, units::length::meter_t y) {
-    units::length::meter_t xGoTo = std::min(x - drivetrain->GetState().Pose.X(), 3_m);
-    units::length::meter_t yGoTo = std::min(y - drivetrain->GetState().Pose.X(), 3_m);
+    units::meters_per_second_t xGoTo = units::math::min(x - drivetrain->GetState().Pose.X(), 3_m)/1_s;
+    units::meters_per_second_t yGoTo = units::math::min(y - drivetrain->GetState().Pose.Y(), 3_m)/1_s;
     
     drivetrain->SetControl(drive.WithVelocityX(xGoTo).WithVelocityY(yGoTo));
 
@@ -36,32 +35,32 @@ void DriveSubsystem::positionDrivebase(subsystems::CommandSwerveDrivetrain* driv
 }
 
 void DriveSubsystem::rotateDrivebase(subsystems::CommandSwerveDrivetrain* drivetrain, double angle) {
-    units::angular_velocity::turns_per_second_t rotGoTo = std::min(units::angular_velocity::turns_per_second_t(angle - drivetrain->GetPigeon2().GetAngle()), 1_tps);
+    units::angular_velocity::turns_per_second_t rotGoTo = units::math::min(units::angular_velocity::turns_per_second_t(angle - drivetrain->GetPigeon2().GetYaw().GetValueAsDouble()), 1_tps);
 
     drivetrain->SetControl(drive.WithRotationalRate(rotGoTo));
 
     targetAngle = angle;
 }
 
-units::length::meter_t DriveSubsystem::xPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t x) { //Getter methods, should you want them
-    units::length::meter_t xGoTo = std::min(x - drivetrain->GetState().Pose.X(), 3_m);
+units::meters_per_second_t DriveSubsystem::xPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t x) { //Getter methods, should you want them
+    units::meters_per_second_t xGoTo = units::math::min(x - drivetrain->GetState().Pose.X(), 3_m)/1_s;
     return xGoTo;
 }
 
-units::length::meter_t DriveSubsystem::yPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t y) {
-    units::length::meter_t yGoTo = std::min(y - drivetrain->GetState().Pose.X(), 3_m);
+units::meters_per_second_t DriveSubsystem::yPositionMath(subsystems::CommandSwerveDrivetrain* drivetrain, units::length::meter_t y) {
+    units::meters_per_second_t yGoTo = units::math::min(y - drivetrain->GetState().Pose.X(), 3_m)/1_s;
     return yGoTo;
 }
 
 double DriveSubsystem::rotMath(subsystems::CommandSwerveDrivetrain* drivetrain, double angle) {
-    double rotGoTo = std::min(angle - drivetrain->GetPigeon2().GetAngle(), 1.0);
+    double rotGoTo = std::min(angle - drivetrain->GetPigeon2().GetYaw().GetValueAsDouble(), 1.0);
     return rotGoTo;
 }
 
 bool DriveSubsystem::isAtRot(subsystems::CommandSwerveDrivetrain* drivetrain) {
-    return (std::abs(targetAngle - drivetrain->GetPigeon2().GetAngle()) <= LimelightConstants::DegTolerance);
+    return (std::abs(targetAngle - drivetrain->GetPigeon2().GetYaw().GetValueAsDouble()) <= AprilTagConstants::DegTolerance);
 }
 
 bool DriveSubsystem::isAtPos(subsystems::CommandSwerveDrivetrain* drivetrain) {
-    return ((std::abs(double(targetX) - double(drivetrain->GetState().Pose.X())) <= LimelightConstants::xTolerance)&&(std::abs(double(targetY) - double(drivetrain->GetState().Pose.Y())) <= LimelightConstants::yTolerance));
+    return ((units::math::abs(targetX - drivetrain->GetState().Pose.X()) <= AprilTagConstants::xTolerance)&&(units::math::abs(targetY - drivetrain->GetState().Pose.Y()) <= AprilTagConstants::yTolerance));
 }
