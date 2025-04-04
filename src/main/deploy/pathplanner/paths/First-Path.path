@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.55823968737176,
-        "y": 4.026173839904758
+        "x": 7.563644425881864,
+        "y": 4.019843601779332
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 4.019006147540983
       },
       "prevControl": {
-        "x": 5.79188747703862,
-        "y": 4.01251830616759
+        "x": 5.775517314181733,
+        "y": 4.019976357414751
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "ParallelT1Algae",
+      "name": "CoralScorePos",
       "waypointRelativePos": 0.49761450381680594,
       "endWaypointRelativePos": null,
       "command": {

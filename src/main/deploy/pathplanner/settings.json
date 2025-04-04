@@ -3,10 +3,10 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Four-Auto",
     "Algae-Coral-Auto",
-    "Single-Auto",
-    "Test"
+    "Four-Auto",
+    "Drive-Forward",
+    "Single-Auto"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
