@@ -33,6 +33,12 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "Algae-Grab",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 1.0,
+      "command": null
+    },
+    {
       "name": "Lift-Up",
       "waypointRelativePos": 0.6464694656488448,
       "endWaypointRelativePos": null,

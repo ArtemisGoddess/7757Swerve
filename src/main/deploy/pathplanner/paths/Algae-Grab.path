@@ -53,6 +53,12 @@
           "name": "Lift-Algae"
         }
       }
+    },
+    {
+      "name": "CoralIntake",
+      "waypointRelativePos": 0.9021946564885271,
+      "endWaypointRelativePos": 1.0,
+      "command": null
     }
   ],
   "globalConstraints": {
