@@ -19,15 +19,15 @@ LiftSubsystem::LiftSubsystem() {
     l_follower1.SetControl(m_follow);
     l_follower2.SetControl(m_follow);
 }
-//
+//This sets the constant moving speed to the maxSpeed where max speed is set is in the constants file 
 void LiftSubsystem::raise() {
     m_lift.Set(LiftConstants::maxSpeed);
 }
-
+//This does the same thing and the maxspeed however minspeed just makes it negative cuz it needs to go reverse it also is set in the constants file
 void LiftSubsystem::lower() {
     m_lift.Set(LiftConstants::minSpeed);
 }
-
+//this like the other two in the constants file it to stop compared to max or min speed
 void LiftSubsystem::stop() {
     m_lift.Set(LiftConstants::stopSpeed);
 }
