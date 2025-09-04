@@ -14,11 +14,12 @@ LiftSubsystem::LiftSubsystem() {
     l_follower1.GetConfigurator().Apply(config);
     l_follower2.GetConfigurator().Apply(config);
 
+    //This just sets one motor to be the lead and the others to follow that so for other commands you only need to touch m_lift and the rest will follow.
     m_lift.SetControl(m_initial);
     l_follower1.SetControl(m_follow);
     l_follower2.SetControl(m_follow);
 }
-
+//
 void LiftSubsystem::raise() {
     m_lift.Set(LiftConstants::maxSpeed);
 }
@@ -42,7 +43,7 @@ void LiftSubsystem::maxPID() {
     m_lift.SetControl(m_request);
     m_setpoint = LiftConstants::maxPID;
 }
-
+//this sets the request for the position that was stated in the liftsubsystem.h file and calls it to go to that set point
 void LiftSubsystem::t1Coral() {
     controls::PositionVoltage m_request = controls::PositionVoltage{LiftConstants::t1PID};
     m_lift.SetControl(m_request);

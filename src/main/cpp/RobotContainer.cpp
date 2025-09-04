@@ -26,6 +26,11 @@
 
 RobotContainer::RobotContainer()//Passes the drivetrain to the targetting subsystem so it may move
 {
+    /* 
+    These funtions are so pathplanner can read them as shaired commands that way all you need to do is link it through naming it in pathplanner 
+    For reading where pathplanner is building go the the pathplanner file in deploy src\main\deploy and based on where your path is you would
+    find that in the path folder and the name of the path is whatever you named it in pathplanner.
+    */
     pathplanner::NamedCommands::registerCommand("CoralOuttake", std::make_shared<Intake>(&m_intakeSubsystem, 0.4)); //This is technically the outtake for the coral
     pathplanner::NamedCommands::registerCommand("AlgaeOuttake", std::make_shared<Outtake>(&m_intakeSubsystem, 0.8)); //This is technically the outtake for the coral
     pathplanner::NamedCommands::registerCommand("AlgaeIntake", std::make_shared<Intake>(&m_intakeSubsystem, 0.8));
@@ -101,5 +106,10 @@ void RobotContainer::ConfigureBindings() {
     
 frc2::CommandPtr RobotContainer::GetAutonomousCommand()
 {
+    /*
+    This is where you would put the name of the auto would be from path planner 
+    ex "return pathplanner::PathPlannerAuto("Drive-Forward").ToPtr();" for this you would change the "Drive-Forward" to which ever auto you want 
+    just keep in mind that you have to build the code when you change auto and make sure that you type it EXACTLY how you spelt it cuz it's case sensitive.
+    */
     return pathplanner::PathPlannerAuto("Drive-Forward").ToPtr();
 }
